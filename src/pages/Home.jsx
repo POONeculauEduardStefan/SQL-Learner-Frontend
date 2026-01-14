@@ -26,16 +26,22 @@ export default function Home() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link
+                            {(user && user.userId) &&<Link
                                 to="/dashboard/laboratories"
                                 className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30"
                             >
                                 Get Started
-                                <ArrowRight className="w-5 h-5" />
-                            </Link>
+                                <ArrowRight className="w-5 h-5"/>
+                            </Link>}
                             {(!user || !user.userId) && <Link
-                                to="/sign-in"
-                                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-900 font-semibold px-8 py-4 rounded-xl transition-all border border-slate-300"
+                                to="/auth/sign-up"
+                                className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30"
+                            >
+                                Sign Up
+                            </Link>}
+                            {(!user || !user.userId) && <Link
+                                to="/auth/sign-in"
+                                className="inline-flex items-center justify-center gap-2 bg-blue-200 hover:bg-blue-300 text-blue-600 font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30"
                             >
                                 Sign In
                             </Link>}

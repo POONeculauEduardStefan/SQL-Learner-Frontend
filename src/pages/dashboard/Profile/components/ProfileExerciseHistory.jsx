@@ -3,8 +3,10 @@ import api from "../../../../services/api.tsx";
 import {getErrorResponseMessage, getSuccessData} from "../../../../utils/responses.jsx";
 import {toast} from "react-toastify";
 import ProfileExerciseHistoryCard from "./ProfileExerciseHistoryCard.jsx";
+import {useTranslation} from "react-i18next";
 
 const ProfileExerciseHistory = () => {
+        const {t} = useTranslation();
         const [history, setHistory] = useState([]);
         // const [isModalOpen, setIsModalOpen] = useState(false);
         const [selectedHistory, setSelectedHistory] = useState(null);
@@ -17,6 +19,7 @@ const ProfileExerciseHistory = () => {
                 });
                 if (response.status === 200) {
                     const data = getSuccessData(response).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                    console.log(data);
                     setHistory(data);
                 }
             } catch (error) {
@@ -31,10 +34,10 @@ const ProfileExerciseHistory = () => {
             <div
                 className="lg:col-span-1 bg-white rounded-2xl shadow-sm border border-slate-200 p-3 sm:p-5 max-h-[500px] overflow-y-auto">
                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                    Exercise History
+                    {t('exercise_history.title')}
                 </h3>
                 {history.length === 0 ? (
-                    <p className="text-gray-600">No history found.</p>
+                    <p className="text-gray-600">{t('exercise_history.no_exercises')}</p>
                 ) : (
                     <ul className="space-y-4 mt-1">
                         {history.map((history, index) => (

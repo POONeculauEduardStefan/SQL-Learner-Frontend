@@ -1,17 +1,18 @@
 import React, {useMemo} from 'react';
 import {Bar} from "react-chartjs-2";
 import {ArcElement, Chart as ChartJS, Legend, Tooltip} from 'chart.js';
+import {useTranslation} from "react-i18next";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ExerciseStatsBarChartModel = ({rawStats, fieldFilter, title}) => {
-
+const ExerciseStatsBarChartModel = ({rawStats, fieldFilter, title, bar}) => {
+    const {t} = useTranslation();
     const chartData = useMemo(() => {
         if (!rawStats || rawStats.length === 0) return null;
         rawStats = rawStats.filter(stat => stat[fieldFilter] > 0);
         rawStats.sort((a, b) => b[fieldFilter] - a[fieldFilter]);
         return {
-            labels: rawStats.map(stat => stat.exercise_id),
+            labels: rawStats.map(stat => stat.exercise_name),
             datasets: [
                 {
                     label: '# of Completions',
@@ -44,14 +45,19 @@ const ExerciseStatsBarChartModel = ({rawStats, fieldFilter, title}) => {
             <div className="h-80 w-full flex items-center justify-center">
                 {chartData ? (
                     <Bar
-                        height={800}
+                        height={400}
                         data={chartData}
                         options={{
                             indexAxis: 'y',
-
                             responsive: true,
                             maintainAspectRatio: false,
-
+                            transitions: {
+                                active: {
+                                    animation: {
+                                        duration: 0
+                                    }
+                                }
+                            },
                             plugins: {
                                 legend: {
                                     display: false,
@@ -65,7 +71,7 @@ const ExerciseStatsBarChartModel = ({rawStats, fieldFilter, title}) => {
                                 },
                                 tooltip: {
                                     callbacks: {
-                                        label: (context) => `${context.raw} % completion`
+                                        label: (context) => `${context.raw} ${bar || ''}`
                                     }
                                 }
                             },
@@ -91,7 +97,7 @@ const ExerciseStatsBarChartModel = ({rawStats, fieldFilter, title}) => {
                         }}
                     />
                 ) : (
-                    <p className="text-gray-500">There is no data to display.</p>
+                    <p className="text-gray-500">{t('stats.there_is_no_data')}</p>
                 )}
             </div>
         </div>

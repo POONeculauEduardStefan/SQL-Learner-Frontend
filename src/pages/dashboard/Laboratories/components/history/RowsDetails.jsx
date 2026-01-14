@@ -1,7 +1,7 @@
 import React from 'react';
 
 const RowsDetails = ({selectedHistoryItem}) => {
-
+    console.log(selectedHistoryItem)
     const getTableColumns = (rows_samples) => {
         const columns = []
         rows_samples.forEach(row => {
@@ -35,32 +35,44 @@ const RowsDetails = ({selectedHistoryItem}) => {
                                             {selectedHistoryItem.result_details.missing_rows_count}
                                         </span>
                                     </p>
-                                    <table className="table-auto">
-                                        <thead>
-                                        <tr>
+                                    <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm max-h-[400px] overflow-y-auto overflow-x-auto"
+                                    style={{
+                                        scrollbarWidth: "none"
+                                    }}
+                                    >
+                                        <table className="w-full">
+                                            <thead>
+                                            <tr
+                                                className="border-b border-slate-200 bg-slate-50"
+                                            >
+                                                {
+                                                    selectedHistoryItem.result_details.columns.map((col, index) => (
+                                                        <th key={index}
+                                                            className={`py-2 text-sm font-semibold text-white ${index % 2 === 0 ? 'bg-slate-600' : 'bg-gray-500'}`}>{col}</th>
+                                                    ))
+                                                }
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                             {
-                                                getTableColumns(selectedHistoryItem.result_details.missing_rows_sample).map((col, index) => (
-                                                    <th key={index} className="py-2 border">{col}</th>
+                                                selectedHistoryItem.result_details.missing_rows_sample.map((row, rowIndex) => (
+                                                    <tr key={rowIndex}
+                                                        className="border-b border-slate-300 last:border-b-0 hover:bg-slate-50 transition-colors"
+                                                    >
+                                                        {
+                                                            selectedHistoryItem.result_details.columns.map((col, colIndex) => (
+                                                                <td key={colIndex}
+                                                                    className={`text-left px-2 py-4 text-sm font-semibold text-slate-700 ${colIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white'}`}>
+                                                                    {row[col] !== undefined ? row[col] : 'N/A'}
+                                                                </td>
+                                                            ))
+                                                        }
+                                                    </tr>
                                                 ))
                                             }
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            selectedHistoryItem.result_details.missing_rows_sample.map((row, rowIndex) => (
-                                                <tr key={rowIndex}>
-                                                    {
-                                                        getTableColumns(selectedHistoryItem.result_details.missing_rows_sample).map((col, colIndex) => (
-                                                            <td key={colIndex} className="px-4 py-2 border">
-                                                                {row[col] !== undefined ? row[col] : 'N/A'}
-                                                            </td>
-                                                        ))
-                                                    }
-                                                </tr>
-                                            ))
-                                        }
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             ) : (
                                 <p className="text-green-600 font-semibold">No missing rows. All
@@ -82,32 +94,40 @@ const RowsDetails = ({selectedHistoryItem}) => {
                                             {selectedHistoryItem.result_details.extra_rows_count}
                                         </span>
                                     </p>
-                                    <table className="table-auto">
-                                        <thead>
-                                        <tr>
+                                    <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm max-h-[400px] overflow-y-auto  overflow-x-auto"
+                                    style={{scrollbarWidth: "none"}}
+                                    >
+                                        <table className="w-full">
+                                            <thead>
+                                            <tr>
+                                                {
+                                                    selectedHistoryItem.result_details.columns.map((col, index) => (
+                                                        <th key={index}
+                                                            className={`py-2 text-sm font-semibold text-white ${index % 2 === 0 ? 'bg-slate-600' : 'bg-gray-500'}`}>{col}</th>
+                                                    ))
+                                                }
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                             {
-                                                getTableColumns(selectedHistoryItem.result_details.extra_rows_sample).map((col, index) => (
-                                                    <th key={index} className="py-2 border">{col}</th>
+                                                selectedHistoryItem.result_details.extra_rows_sample.map((row, rowIndex) => (
+                                                    <tr key={rowIndex}
+                                                        className="border-b border-slate-300 last:border-b-0 hover:bg-slate-50 transition-colors"
+                                                    >
+                                                        {
+                                                            selectedHistoryItem.result_details.columns.map((col, colIndex) => (
+                                                                <td key={colIndex}
+                                                                    className={`text-left px-2 py-4 text-sm font-semibold text-slate-700 ${colIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white'}`}>
+                                                                    {row[col] !== undefined ? row[col] : 'N/A'}
+                                                                </td>
+                                                            ))
+                                                        }
+                                                    </tr>
                                                 ))
                                             }
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            selectedHistoryItem.result_details.extra_rows_sample.map((row, rowIndex) => (
-                                                <tr key={rowIndex}>
-                                                    {
-                                                        getTableColumns(selectedHistoryItem.result_details.extra_rows_sample).map((col, colIndex) => (
-                                                            <td key={colIndex} className="px-4 py-2 border">
-                                                                {row[col] !== null ? row[col] : 'null'}
-                                                            </td>
-                                                        ))
-                                                    }
-                                                </tr>
-                                            ))
-                                        }
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             ) : (
                                 <p className="text-green-600 font-semibold">No missing rows. All

@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {Eye, Trash2} from "lucide-react";
 import DeleteEntityModal from "../../../DeleteEntityModal.jsx";
+import {useTranslation} from "react-i18next";
 
 const ExerciseCard = ({
                           index, exercise, handleOpenEdit, handleDeleteExercise
                       }) => {
-
+    const {t} = useTranslation();
     const [isDeleteExerciseOpen, setIsDeleteExerciseOpen] = useState(false);
 
     return (
@@ -23,18 +24,19 @@ const ExerciseCard = ({
                     }</p>
             </div>
             <p className="text-xs text-slate-400 mb-2 line-clamp-3">
-                Exercise ID: {exercise.id}
+                {t('common.exercise_name')}: {exercise.name}
+            </p>
+            <p className="text-xs text-slate-400 mb-2 line-clamp-3">
+                {t('common.exercise_id')}: {exercise.id}
             </p>
             {
                 exercise.created_at && (
-                    <p className="text-xs text-slate-400 mb-2">Created
-                        at: {new Date(exercise.created_at).toLocaleDateString()}</p>
+                    <p className="text-xs text-slate-400 mb-2">{t('common.created_at')}: {new Date(exercise.created_at).toLocaleDateString()}</p>
                 )
             }
             {
                 exercise.updated_at && (
-                    <p className="text-xs text-slate-400 mb-2">Updated
-                        at: {new Date(exercise.updated_at).toLocaleDateString()}</p>
+                    <p className="text-xs text-slate-400 mb-2">{t('common.updated_at')}: {new Date(exercise.updated_at).toLocaleDateString()}</p>
                 )
             }
 
@@ -45,7 +47,7 @@ const ExerciseCard = ({
                     onClick={() => handleOpenEdit(exercise)}
                 >
                     <Eye className="w-3.5 h-3.5"/>
-                    <span>View/Edit</span>
+                    <span>{t('common.view_edit')}</span>
                 </button>
                 <button
                     onClick={() => setIsDeleteExerciseOpen(true)}

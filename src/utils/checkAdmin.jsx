@@ -16,7 +16,7 @@ export function useIsAdmin() {
                 });
 
                 if (isMounted && response.status === 200 && response.data?.data.id) {
-                    setIsAdmin(response.data?.data.role === 1);
+                    setIsAdmin(response.data?.data.role === 1 || response.data?.data.role === 2);
                 }
             } catch (error) {
                 if (isMounted) {

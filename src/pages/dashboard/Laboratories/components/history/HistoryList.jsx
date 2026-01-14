@@ -1,7 +1,8 @@
 import React from 'react';
+import {useTranslation} from "react-i18next";
 
 const HistoryList = ({history, setSelectedHistoryItem}) => {
-
+    const {t} = useTranslation();
 
     return (
         <>
@@ -18,7 +19,7 @@ const HistoryList = ({history, setSelectedHistoryItem}) => {
                                 item.success ? 'text-green-600' : 'text-red-600'
                             }`}
                         >
-                                {item.success ? 'Success' : 'Failed'}
+                                {item.success ? t('common.success') : t('common.failure')}
                             </span>
                         <span className="text-xs text-slate-400">
                                 {new Date(item.created_at).toLocaleDateString()}

@@ -4,9 +4,11 @@ import {toast} from "react-toastify";
 import api from "../../services/api.js";
 import {Eye, EyeOff, Lock, Mail} from 'lucide-react';
 import {getErrorResponseMessage} from "../../utils/responses.jsx";
+import {useTranslation} from "react-i18next";
 
 
 const SignIn = () => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,11 +31,12 @@ const SignIn = () => {
             if (response.status === 200) {
                 localStorage.setItem("token", response.data.data.token);
                 toast.success("User successfully logged in!");
-                navigate("/")
+                navigate("/dashboard/home")
             }
         } catch (error) {
             const message = getErrorResponseMessage(error);
-            toast.error(message);
+            const translatedMessage = t(`backend.${message}`);
+            toast.error(translatedMessage);
         } finally {
             setLoading(false);
         }
@@ -43,14 +46,14 @@ const SignIn = () => {
         <div
             className="bg-slate-900/50 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800/50 p-6 sm:p-8 md:p-10">
             <div className="mb-8">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Welcome Back</h2>
-                <p className="text-slate-400">Sign in to continue your SQL journey</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">{t('common.welcome')}</h2>
+                <p className="text-slate-400">{t('sign_in.continue')}</p>
             </div>
 
             <form onSubmit={handleSignIn} className="space-y-5">
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                        Email Address
+                        {t('common.email')}
                     </label>
                     <div className="relative group">
                         <Mail
@@ -69,7 +72,7 @@ const SignIn = () => {
 
                 <div>
                     <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
-                        Password
+                        {t('common.password')}
                     </label>
                     <div className="relative group">
                         <Lock
@@ -108,14 +111,14 @@ const SignIn = () => {
 
             <div className="mt-8 text-center flex flex-col gap-3">
                 <p className="text-slate-400 text-sm">
-                    Forgot your password?{' '}
+                    {t('auth.forgot_password')}{' '}
                     <Link to="/auth/forgot-password"
                           className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-                        Reset Password
+                        {t('auth.reset_password')}
                     </Link>
                 </p>
                 <p className="text-slate-400 text-sm">
-                    Don't have an account?{' '}
+                    {t('auth.no_account')}{' '}
                     <Link to="/auth/sign-up"
                           className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
                         Sign Up

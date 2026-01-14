@@ -1,15 +1,22 @@
 import React, {useState} from 'react';
-import {BookOpen, Delete, Search} from "lucide-react";
+import {BookOpen, DatabaseZap, Delete, Search} from "lucide-react";
 import api from "../../../services/api.tsx";
 import {getErrorResponseMessage, getSuccessData} from "../../../utils/responses.jsx";
 import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
+import QueryResults from "../QueryResults.jsx";
+import SchemaModal from "../Courses/SchemaModal.jsx";
 
 const Practice = () => {
+    const {t} = useTranslation();
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [columns, setColumns] = useState([]);
     const [rows, setRows] = useState([]);
-
+    const [isSchemaModalOpen, setIsSchemaModalOpen] = useState(false);
+    const onCloseSchemaModal = () => {
+        setIsSchemaModalOpen(false);
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!input) {
@@ -34,7 +41,7 @@ const Practice = () => {
             }
         } catch (error) {
             const message = getErrorResponseMessage(error);
-            toast.error(message || 'Failed to execute query');
+            toast.error(t(`backend.${message}`) || t('error.query_execution_failed'));
         } finally {
             setLoading(false);
         }
@@ -48,14 +55,21 @@ const Practice = () => {
 
     return (
         <div className="mt-6 w-[90%] mx-auto">
-            <div>
-                <h1 className="text-3xl font-bold mb-2"
-                >
-                    SQL Practice</h1>
-                <p className="text-slate-600 mb-6"
-                >
-                    Practice your SQL skills with interactive exercises and challenges.
-                </p>
+            <div className="flex items-center gap-10">
+                <div>
+                    <h1 className="text-3xl font-bold mb-2"
+                    >
+                        {t('practice.title')}</h1>
+                    <p className="text-slate-600 mb-6"
+                    >
+                        {t('practice.description')}
+                    </p>
+                </div>
+                <button
+                    onClick={() => setIsSchemaModalOpen(true)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <DatabaseZap className="w-5 h-5"/>
+                </button>
             </div>
             <div className="flex flex-col gap-10">
                 <form className="flex flex-col gap-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6"
@@ -69,7 +83,7 @@ const Practice = () => {
                                 rows="4"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                placeholder="Type your SQL query here..."
+                                placeholder={t('practice.sql_placeholder')}
                                 spellCheck="false"
                                 autoCapitalize="none"
                                 autoCorrect="off"
@@ -95,42 +109,14 @@ const Practice = () => {
                         </button>
                     </div>
                 </form>
-                {columns.length > 0 && rows.length > 0 ?
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-5">
-                        <div className="overflow-x-auto min-h-[420px]">
-                            <table className="w-full">
-                                <thead>
-                                <tr className="border-b border-slate-200 bg-slate-50">
-                                    {columns.map((col, index) => (
-                                        <th className={`text-left px-2 py-4 text-sm font-semibold text-slate-700 ${index % 2 === 0 ? 'bg-slate-100' : 'bg-white'}`}
-                                            key={index}>{col}</th>
-                                    ))}
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {rows.map((row, rowIndex) => (
-                                    <tr className="border-b border-slate-300 last:border-b-0 hover:bg-slate-50 transition-colors"
-                                        key={rowIndex}>
-                                        {columns.map((col, colIndex) => (
-                                            <td className={`text-left px-2 py-4 text-sm font-semibold text-slate-700 ${colIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white'}`}
-                                                key={colIndex}>{row[col] || 'null'}</td>
-                                        ))}
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    :
-                    <div
-                        className="flex flex-col h-[450px] items-center justify-center bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
-                        <BookOpen className="w-12 h-12 text-slate-400 mx-auto mb-4"/>
-                        <h2 className="text-slate-500 mb-4">
-                            No results to display
-                        </h2>
-                    </div>
-                }
+                <QueryResults
+                    columns={columns}
+                    rows={rows}
+                />
             </div>
+            {isSchemaModalOpen && (
+                <SchemaModal isOpen={isSchemaModalOpen} onClose={onCloseSchemaModal}/>
+            )}
         </div>
     );
 };

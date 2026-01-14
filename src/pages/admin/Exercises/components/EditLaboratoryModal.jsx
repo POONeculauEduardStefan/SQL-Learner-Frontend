@@ -3,8 +3,10 @@ import {Loader2, X} from 'lucide-react';
 import {toast} from "react-toastify";
 import api from "../../../../services/api.tsx";
 import {getErrorResponseMessage} from "../../../../utils/responses.jsx";
+import {useTranslation} from "react-i18next";
 
 export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laboratory}) {
+    const {t} = useTranslation();
     const [formData, setFormData] = useState({
         title: '',
         order_index: 0,
@@ -26,7 +28,7 @@ export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laborat
         setLoading(true);
 
         if (formData.title.trim() === '') {
-            toast.error("Title is required");
+            toast.error(t('exercise_management.title_required'));
             setLoading(false);
             return;
         }
@@ -40,13 +42,13 @@ export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laborat
             );
 
             if (response.status === 200) {
-                toast.success("Laboratory updated successfully");
+                toast.success(t('exercise_management.laboratory_update_success'));
                 onSuccess();
                 onClose();
             }
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message || 'Failed to update laboratory');
+            toast.error(t(`backend.${message}`) || t('exercise_management.laboratory_update_failure'));
         } finally {
             setLoading(false);
         }
@@ -79,7 +81,7 @@ export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laborat
             <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[95vh] overflow-y-auto">
                 <div
                     className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-slate-900">Edit Laboratory</h2>
+                    <h2 className="text-2xl font-bold text-slate-900">{t('exercise_management.edit_lab')}</h2>
                     <button
                         onClick={handleClose}
                         disabled={loading}
@@ -93,7 +95,7 @@ export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laborat
                     <div className="space-y-5">
                         <div>
                             <label htmlFor="title" className="block text-sm font-semibold text-slate-700 mb-2">
-                                Title
+                                {t('common.title')}
                             </label>
                             <input
                                 id="title"
@@ -107,7 +109,7 @@ export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laborat
                         </div>
                         <div>
                             <label htmlFor="order_index" className="block text-sm font-semibold text-slate-700 mb-2">
-                                Order Index
+                                {t('common.order_index')}
                             </label>
                             <input
                                 id="order_index"
@@ -128,7 +130,7 @@ export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laborat
                             disabled={loading}
                             className="flex-1 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
                         >
-                            Cancel
+                            {t('common.cancel')}
                         </button>
                         <button
                             type="submit"
@@ -138,10 +140,10 @@ export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laborat
                             {loading ? (
                                 <>
                                     <Loader2 className="w-5 h-5 animate-spin"/>
-                                    <span>Saving...</span>
+                                    <span>{t('common.save_loading')}</span>
                                 </>
                             ) : (
-                                <span>Save Exercise</span>
+                                <span>{t('exercise_management.save_exercise')}</span>
                             )}
                         </button>
                     </div>

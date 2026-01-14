@@ -2,8 +2,10 @@ import {useState} from 'react';
 import {Loader2, X} from 'lucide-react';
 import {toast} from "react-toastify";
 import {getErrorResponseMessage} from "../utils/responses.jsx";
+import {useTranslation} from "react-i18next";
 
 export default function DeleteEntityModal({isOpen, onClose, deleteEntity, entityId, entityName}) {
+    const {t} = useTranslation();
     const [loading, setLoading] = useState(false);
     const [mouseDownTarget, setMouseDownTarget] = useState(null);
 
@@ -47,7 +49,7 @@ export default function DeleteEntityModal({isOpen, onClose, deleteEntity, entity
             <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
                 <div
                     className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                    <h2 className="text-xl font-bold text-slate-900">Delete {entityName}?</h2>
+                    <h2 className="text-xl font-bold text-slate-900">{t('common.delete')} {entityName}?</h2>
                     <button
                         onClick={handleClose}
                         disabled={loading}
@@ -58,8 +60,7 @@ export default function DeleteEntityModal({isOpen, onClose, deleteEntity, entity
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6">
-                    <p className="text-slate-600 mb-6">This action cannot be undone. Are you sure you want to do
-                        this?</p>
+                    <p className="text-slate-600 mb-6">{t('common.action_cannot_be_undone')}</p>
 
                     <div className="flex gap-3">
                         <button
@@ -68,7 +69,7 @@ export default function DeleteEntityModal({isOpen, onClose, deleteEntity, entity
                             disabled={loading}
                             className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
                         >
-                            Cancel
+                            {t('common.cancel')}
                         </button>
                         <button
                             type="submit"
@@ -78,10 +79,10 @@ export default function DeleteEntityModal({isOpen, onClose, deleteEntity, entity
                             {loading ? (
                                 <>
                                     <Loader2 className="w-5 h-5 animate-spin"/>
-                                    <span>Deleting...</span>
+                                    <span>{t('common.delete_loading')}</span>
                                 </>
                             ) : (
-                                <span>Delete {entityName}</span>
+                                <span>{t('common.delete')} {entityName}</span>
                             )}
                         </button>
                     </div>

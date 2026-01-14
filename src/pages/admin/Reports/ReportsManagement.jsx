@@ -8,8 +8,10 @@ import ReportCard from "./components/ReportCard.jsx";
 import ReportStats from "./components/ReportStats.jsx";
 import ReportFilter from "./components/ReportFilter.jsx";
 import DeleteEntityModal from "../../DeleteEntityModal.jsx";
+import {useTranslation} from "react-i18next";
 
 export default function ReportsManagement() {
+    const {t} = useTranslation();
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
@@ -40,7 +42,7 @@ export default function ReportsManagement() {
             }
         } catch (error) {
             const message = getErrorResponseMessage(error);
-            toast.error(message || 'Failed to fetch reports.');
+            toast.error(t(`backend.${message}`) || t('reports_management.failed_fetch_reports'));
         } finally {
             setLoading(false);
         }
@@ -48,8 +50,8 @@ export default function ReportsManagement() {
 
     const handleUpdateReport = async () => {
         if (!selectedReport) return;
-        if(statusFormData.status === 'resolved' && !statusFormData.solution.trim()) {
-            toast.error('Please provide a solution when marking the report as resolved.');
+        if (statusFormData.status === 'resolved' && !statusFormData.solution.trim()) {
+            toast.error(t('reports_management.provide_solution_for_report'));
             return;
         }
         try {
@@ -62,9 +64,8 @@ export default function ReportsManagement() {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 200) {
-                const data = getSuccessData(response);
-                console.log(data);
-                toast.success('Report updated successfully.');
+                // const data = getSuccessData(response);
+                toast.success(t('reports_management.report_update_success'));
             }
             setShowStatusModal(false);
             setSelectedReport(null);
@@ -81,12 +82,12 @@ export default function ReportsManagement() {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
             });
             if (response.status === 204) {
-                toast.success('Report deleted successfully.');
+                toast.success(t('reports_management.report_deleted_success'));
                 await loadReports();
             }
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message || 'Failed to delete report.');
+            toast.error(t(`backend.${message}`) || t('reports_management.report_deleted_failure'));
         }
     };
 
@@ -119,8 +120,8 @@ export default function ReportsManagement() {
     return (
         <div>
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-900 mb-2">Reports Management</h1>
-                <p className="text-slate-600">View and manage user-submitted reports</p>
+                <h1 className="text-3xl font-bold text-slate-900 mb-2">{t('reports_management.title')}</h1>
+                <p className="text-slate-600">{t('reports_management.description')}</p>
             </div>
 
             <ReportStats stats={stats}/>
@@ -137,7 +138,7 @@ export default function ReportsManagement() {
                 </div>
             ) : (
                 <div className="space-y-3">
-                    {filteredReports.map((report,index) => <ReportCard
+                    {filteredReports.map((report, index) => <ReportCard
                         key={index}
                         report={report}
                         setExpandedReportId={setExpandedReportId}
@@ -169,7 +170,7 @@ export default function ReportsManagement() {
                     <DeleteEntityModal
                         isOpen={isDeleteReportOpen}
                         onClose={() => setIsDeleteReportOpen(false)}
-                        entityName="report"
+                        entityName={t('reports_management.report')}
                         deleteEntity={handleDeleteReport}
                         entityId={selectedReportId}
                     />

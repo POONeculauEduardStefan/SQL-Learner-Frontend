@@ -24,7 +24,7 @@ function App() {
             <Route>
                 <Route path="/landing/*" element={<Landing/>}/>
             </Route>
-            <Route path="*" element={<Navigate to="/dashboard/home" replace/>}/>
+            <Route path="*" element={<Navigate to="/landing/home" replace/>}/>
         </Routes>
     )
 }

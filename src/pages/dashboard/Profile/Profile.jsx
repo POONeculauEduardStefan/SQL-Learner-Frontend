@@ -6,9 +6,11 @@ import ProfileInformationCard from "./components/ProfileInformationCard.jsx";
 import {getErrorResponseMessage, getSuccessData} from "../../../utils/responses.jsx";
 import ProfileReportStatus from "./components/ProfileReportStatus.jsx";
 import ProfileExerciseHistory from "./components/ProfileExerciseHistory.jsx";
+import {useTranslation} from "react-i18next";
 
 
 export default function Profile() {
+    const {t} = useTranslation();
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -147,18 +149,18 @@ export default function Profile() {
 
         setSaving(true);
         if (!formData.currentPassword || !formData.newPassword || !formData.confirmNewPassword) {
-            toast.error("Please fill in all fields");
+            toast.error(t('error.all_fields_required'));
             setSaving(false);
             return;
         }
         if (formData.newPassword !== formData.confirmNewPassword) {
-            toast.error("Passwords don't match");
+            toast.error(t('error.password_match'));
             setSaving(false);
             return;
         }
 
         if (formData.newPassword.length < 8 || !/\d/.test(formData.newPassword) || !/[a-z]/.test(formData.newPassword) || !/[A-Z]/.test(formData.newPassword) || !/[!@#$%^&*]/.test(formData.newPassword)) {
-            toast.error("Password must be at least 8 characters long and include uppercase, lowercase, number, and special character");
+            toast.error(t('error.password_requirements'));
             setSaving(false);
             return;
         }
@@ -171,7 +173,7 @@ export default function Profile() {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 200) {
-                toast.success("Password changed successfully");
+                toast.success(t('success.password_changed'));
                 setFormData({
                     ...formData,
                     currentPassword: '',
@@ -182,7 +184,7 @@ export default function Profile() {
                 setSaving(false);
             }
         } catch (error) {
-            const message = getErrorResponseMessage(error) || 'Failed to change password';
+            const message = getErrorResponseMessage(error) || t('error.password_change_failed');
             toast.error(message);
         } finally {
             setLoading(false);
@@ -217,8 +219,8 @@ export default function Profile() {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-6">
             <div className="mb-2">
-                <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Profile</h1>
-                <p className="text-slate-600 text-sm sm:text-base">Manage your account information</p>
+                <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">{t('profile.profile')}</h1>
+                <p className="text-slate-600 text-sm sm:text-base">{t('profile.manage')}</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <ProfileCard

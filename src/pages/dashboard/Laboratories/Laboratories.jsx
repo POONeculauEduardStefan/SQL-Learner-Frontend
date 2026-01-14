@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BookOpen} from "lucide-react";
+import {BookOpen, DatabaseZap} from "lucide-react";
 import ViewExerciseModal from "./components/ViewExerciseModal.jsx";
 import api from "../../../services/api.js";
 import {getErrorResponseMessage, getSuccessData} from "../../../utils/responses.jsx";
@@ -8,8 +8,11 @@ import ExerciseCard from "./components/ExerciseCard.jsx";
 import LaboratoriesList from "./components/LaboratoriesList.jsx";
 import SolveExerciseModal from "./components/SolveExerciseModal.jsx";
 import ReportExerciseModal from "./components/ReportExerciseModal.jsx";
+import {useTranslation} from "react-i18next";
+import SchemaModal from "../Courses/SchemaModal.jsx";
 
 const Laboratories = () => {
+    const {t} = useTranslation();
     const [laboratories, setLaboratories] = useState([])
     const [selectedLab, setSelectedLab] = useState({
         id: null,
@@ -20,7 +23,10 @@ const Laboratories = () => {
     const [isSolveExerciseOpen, setIsSolveExerciseOpen] = useState(false)
     const [isReportExerciseOpen, setIsReportExerciseOpen] = useState(false)
     const [selectedExercise, setSelectedExercise] = useState(null)
-
+    const [isSchemaModalOpen, setIsSchemaModalOpen] = useState(false);
+    const onCloseSchemaModal = () => {
+        setIsSchemaModalOpen(false);
+    }
     const fetchExercisesByLabId = async (labId) => {
         try {
             const response = await api.get(`http://127.0.0.1:8000/api/v1/exercise/user/by-laboratory/${labId}`, {
@@ -54,7 +60,7 @@ const Laboratories = () => {
             }
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message);
+            toast.error(t(`backend.${message}`));
         }
     }
     const fetchLaboratories = async () => {
@@ -72,7 +78,7 @@ const Laboratories = () => {
             }
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message);
+            toast.error(t(`backend.${message}`));
         }
     }
 
@@ -89,24 +95,29 @@ const Laboratories = () => {
     }
     return (
         <div className="mt-6 w-[90%] mx-auto">
-            <div>
-                <h1 className="text-3xl font-bold mb-2"
-                >
-                    SQL Exercises</h1>
-                <p className="text-slate-600 mb-6"
-                >
-                    Browse and practice SQL exercises organized by laboratories.
-                </p>
+            <div className="flex items-center gap-10">
+                <div>
+                    <h1 className="text-3xl font-bold mb-2">
+                        {t('laboratories.title')}</h1>
+                    <p className="text-slate-600 mb-6">
+                        {t('laboratories.description')}
+                    </p>
+                </div>
+                <button
+                    onClick={() => setIsSchemaModalOpen(true)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <DatabaseZap className="w-5 h-5"/>
+                </button>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 <div className="lg:col-span-1">
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
                         <h2 className="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-4 px-2">
-                            Laboratories
+                            {t('common.labs')}
                         </h2>
                         <p
                             className="text-slate-500 text-sm mb-4 px-2 py-2 border-b border-slate-200">
-                            Select a laboratory to view its exercises.
+                            {t('laboratories.select_lab')}
                         </p>
                         {laboratories.length === 0 ? (
                             <div className="text-center py-8">
@@ -124,7 +135,7 @@ const Laboratories = () => {
                     <h2
                         className="text-lg font-bold text-slate-900 mb-2"
                     >
-                        {selectedLab.title ? `Exercises for Laboratory: ${selectedLab.title}` : 'Please choose a laboratory'}
+                        {selectedLab.title ? `${t('laboratories.exercise_for_lab')}: ${selectedLab.title}` : (t('laboratories.choose_lab'))}
                     </h2>
                     {exercises && exercises.length > 0 ?
                         <div className="flex flex-col gap-4 h-[450px] overflow-y-auto">
@@ -181,6 +192,14 @@ const Laboratories = () => {
                         onClose={() => setIsReportExerciseOpen(false)}
                         exercise={selectedExercise}
                         laboratory={selectedLab}
+                    />
+                )
+            }
+            {
+                isSchemaModalOpen && (
+                    <SchemaModal
+                        isOpen={isSchemaModalOpen}
+                        onClose={onCloseSchemaModal}
                     />
                 )
             }

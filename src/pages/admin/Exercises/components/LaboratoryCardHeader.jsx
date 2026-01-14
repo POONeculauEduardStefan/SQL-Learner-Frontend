@@ -1,5 +1,6 @@
 import React from 'react';
 import {Delete, Edit, Plus, Search, Trash2} from "lucide-react";
+import {useTranslation} from "react-i18next";
 
 const LaboratoryCardHeader = ({
                                   selectedLab,
@@ -10,6 +11,7 @@ const LaboratoryCardHeader = ({
                                   setSearchQuery,
                                   clearSearch
                               }) => {
+    const {t} = useTranslation();
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
             <div className="flex items-start justify-between mb-4">
@@ -45,7 +47,7 @@ const LaboratoryCardHeader = ({
                         className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"/>
                     <input
                         type="text"
-                        placeholder="Search exercises..."
+                        placeholder={t('exercise_management.search_exercises_placeholder')}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full pl-12 pr-4 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"

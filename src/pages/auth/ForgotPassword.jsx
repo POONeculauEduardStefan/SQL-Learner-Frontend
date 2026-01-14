@@ -4,9 +4,11 @@ import {toast} from "react-toastify";
 import api from "../../services/api.js";
 import {Mail} from 'lucide-react';
 import {getErrorResponseMessage} from "../../utils/responses.jsx";
+import {useTranslation} from "react-i18next";
 
 
 const ForgotPassword = () => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
@@ -39,14 +41,14 @@ const ForgotPassword = () => {
         <div
             className="bg-slate-900/50 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800/50 p-6 sm:p-8 md:p-10">
             <div className="mb-8">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Welcome Back</h2>
-                <p className="text-slate-400">Sign in to continue your SQL journey</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">{t('common.welcome')}</h2>
+                <p className="text-slate-400">{t('forgot_password.continue')}</p>
             </div>
 
             <form onSubmit={handleSignIn} className="space-y-5">
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                        Email Address
+                        {t('common.email')}
                     </label>
                     <div className="relative group">
                         <Mail
@@ -68,16 +70,16 @@ const ForgotPassword = () => {
                     disabled={loading}
                     className="w-full mt-8 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-3.5 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-blue-500/25 cursor-pointer"
                 >
-                    {loading ? 'Signing In...' : 'Sign In'}
+                    {loading ? t('auth.sign_in_loading') : t('auth.sign_in')}
                 </button>
             </form>
 
             <div className="mt-8 text-center">
                 <p className="text-slate-400 text-sm">
-                    Don't have an account?{' '}
+                    {t('auth.no_account')}{' '}
                     <Link to="/auth/sign-up"
                           className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-                        Sign Up
+                        {t('auth.sign_up')}
                     </Link>
                 </p>
             </div>

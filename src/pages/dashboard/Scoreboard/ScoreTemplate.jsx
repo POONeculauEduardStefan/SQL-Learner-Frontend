@@ -1,7 +1,9 @@
 import React from 'react';
 import {Trophy} from "lucide-react";
+import {useTranslation} from "react-i18next";
 
 const ScoreTemplate = ({score}) => {
+    const {t} = useTranslation();
     let lastScore = null;
     let currentRank = 0;
     const scoresWithRank = score.map((user) => {
@@ -54,9 +56,9 @@ const ScoreTemplate = ({score}) => {
                 <table className="min-w-full">
                     <thead className="bg-gray-100">
                     <tr>
-                        <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Rank</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Score</th>
+                        <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">{t('leaderboard.rank')}</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('leaderboard.username')}</th>
+                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('leaderboard.score')}</th>
                     </tr>
                     </thead>
                     <tbody className="bg-white">

@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {X} from 'lucide-react';
 import {getStatusColor, getStatusIcon} from "../../../../utils/statusIcon.jsx";
+import {useTranslation} from "react-i18next";
 
 export default function ProfileReportStatusModal({isOpen, onClose, report}) {
+    const {t} = useTranslation();
     const [mouseDownTarget, setMouseDownTarget] = useState(null);
 
 
@@ -29,7 +31,7 @@ export default function ProfileReportStatusModal({isOpen, onClose, report}) {
             <div className="bg-white rounded-2xl shadow-xl max-w-[80%] w-full max-h-[90vh] overflow-y-auto">
                 <div
                     className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                    <h2 className="text-lg"><span className="font-bold text-slate-900">Report:</span> {report.title}
+                    <h2 className="text-lg"><span className="font-bold text-slate-900">{t('common.report')}:</span> {report.title}
                     </h2>
                     <button
                         onClick={handleClose}
@@ -57,16 +59,16 @@ export default function ProfileReportStatusModal({isOpen, onClose, report}) {
                     </div>
                     <div className="flex flex-col p-6 gap-2">
                         <p className="text-black-600 font-bold">
-                            Submitted on: <span
+                            {t('common.submitted_on')}: <span
                             className="font-normal">{new Date(report.created_at).toLocaleDateString()}</span>
                         </p>
                         {report.updated_at && <p className="text-black-600 font-bold">
-                            Updated on: <span
+                            {t('common.updated_on')}: <span
                             className="font-normal">{new Date(report.updated_at).toLocaleDateString()}</span>
                         </p>}
                         <div className="mt-4">
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Report Details</h3>
-                            <p className="text-gray-700 whitespace-pre-wrap">{report.solution || 'No additional details provided.'}</p>
+                            <h3 className="text-lg font-semibold text-slate-900 mb-2">{t('common.report_details')}</h3>
+                            <p className="text-gray-700 whitespace-pre-wrap">{report.solution || t('error.no_additional_details_provided')}</p>
                         </div>
                     </div>
                 </div>

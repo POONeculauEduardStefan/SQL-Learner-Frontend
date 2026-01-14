@@ -1,5 +1,6 @@
 import React from 'react';
 import {Calendar, Camera, Check, CreditCard as Edit2, Mail, User, X} from "lucide-react";
+import {useTranslation} from "react-i18next";
 
 const ProfileCard = ({
                          user,
@@ -11,6 +12,7 @@ const ProfileCard = ({
                          setIsEditing,
                          handleChangeImage
                      }) => {
+    const {t} = useTranslation();
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -85,7 +87,7 @@ const ProfileCard = ({
                             className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors cursor-pointer"
                         >
                             <Edit2 className="w-4 h-4"/>
-                            <span>Edit Profile</span>
+                            <span>{t('profile.edit_profile')}</span>
                         </button>
                     )}
                 </div>
@@ -102,7 +104,7 @@ const ProfileCard = ({
                     <div className="flex items-center gap-3 text-sm">
                         <Calendar className="w-5 h-5 text-slate-400"/>
                         <div>
-                            <p className="text-slate-500">Member Since</p>
+                            <p className="text-slate-500">{t('profile.member_since')}</p>
                             <p className="text-slate-900 font-medium">
                                 {user?.created_at ? new Date(user.created_at).toLocaleDateString('en-US', {
                                     day: 'numeric',

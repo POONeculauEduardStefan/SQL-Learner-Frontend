@@ -1,14 +1,32 @@
 import React, {useEffect, useState} from 'react';
-import {ArrowLeft, ArrowRight, Calendar, Delete, Mail, Search, Trash, User, UserCheck, UserStar} from 'lucide-react';
+import {
+    ArrowLeft,
+    ArrowRight,
+    Calendar,
+    Crown,
+    Delete,
+    Mail,
+    Search,
+    Trash,
+    User,
+    UserCheck, UserRoundX,
+    UserStar
+} from 'lucide-react';
 import api from "../../../services/api.tsx";
 import {toast} from "react-toastify";
 import {getErrorResponseMessage, getSuccessData} from "../../../utils/responses.jsx";
 import DeleteEntityModal from "../../DeleteEntityModal.jsx";
 import PromoteAdminModal from "./PromoteAdminModal.jsx";
+import {useTranslation} from "react-i18next";
+import {useAdmin} from "../../../context/AdminRequired.jsx";
+import DemoteUserModal from "./DemoteUserModal.jsx";
 
 const USER_PER_PAGE = 5;
 
 export default function UsersManagement() {
+    const currentUser = useAdmin();
+    console.log(currentUser);
+    const {t} = useTranslation();
     const [searchQuery, setSearchQuery] = useState('');
     const [usersData, setUsersData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +34,7 @@ export default function UsersManagement() {
     const [totalUsers, setTotalUsers] = useState(0);
     const [isDeleteUserOpen, setIsDeleteUserOpen] = useState(false);
     const [isAdminOpen, setIsAdminOpen] = useState(false);
+    const [isDemoteUserOpen, setIsDemoteUserOpen] = useState(false);
     const [selectedUserId, setSelectedUserId] = useState(null);
 
     const getAllUsers = async (page = 1, query = '') => {
@@ -29,7 +48,6 @@ export default function UsersManagement() {
                 headers: {Authorization: `Bearer ${token}`},
             });
             const data = getSuccessData(response);
-            console.log(data)
             setUsersData(data.users);
             setTotalPages(data.total_pages);
             setTotalUsers(data.total);
@@ -86,7 +104,6 @@ export default function UsersManagement() {
     const paginationPages = getPaginationPages();
 
     const deleteUser = async (userId) => {
-        console.log(userId);
         const token = localStorage.getItem("token");
         try {
             const response = await api.delete(`http://127.0.0.1:8000/api/v1/admin/users/${userId}`, {
@@ -104,7 +121,8 @@ export default function UsersManagement() {
         } catch (e) {
             console.error(e);
             const message = getErrorResponseMessage(e) || "Failed to delete user";
-            toast.error(message);
+            const translatedMessage = t(`backend.${message}`);
+            toast.error(translatedMessage);
         }
     }
 
@@ -113,11 +131,16 @@ export default function UsersManagement() {
         await getAllUsers(currentPage, searchQuery);
     }
 
+    const handleCloseDemoteUser = async () => {
+        setIsDemoteUserOpen(false);
+        await getAllUsers(currentPage, searchQuery);
+    }
+
     return (
         <div>
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-900 mb-2">Users Management</h1>
-                <p className="text-slate-600">View and manage all platform users</p>
+                <h1 className="text-3xl font-bold text-slate-900 mb-2">{t('users_management.title')}</h1>
+                <p className="text-slate-600">{t('users_management.description')}</p>
             </div>
 
             <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
@@ -125,7 +148,7 @@ export default function UsersManagement() {
                     <div className="flex-1 relative">
                         <input
                             type="text"
-                            placeholder="Search users by name or email..."
+                            placeholder={t('users_management.search_placeholder')}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
@@ -154,7 +177,7 @@ export default function UsersManagement() {
                             <UserCheck className="w-6 h-6 text-emerald-600"/>
                         </div>
                         <div>
-                            <p className="text-sm text-slate-600">Total Users</p>
+                            <p className="text-sm text-slate-600">{t('users_management.total_users')}</p>
                             <p className="text-2xl font-bold text-slate-900">{totalUsers}</p>
                         </div>
                     </div>
@@ -166,7 +189,7 @@ export default function UsersManagement() {
                     <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
                         <div className="flex items-center gap-4">
                             <div>
-                                <p className="text-slate-500 mx-auto">No users found matching your criteria</p>
+                                <p className="text-slate-500 mx-auto"></p>
                             </div>
                         </div>
                     </div>
@@ -178,10 +201,10 @@ export default function UsersManagement() {
                         <table className="w-full">
                             <thead>
                             <tr className="border-b border-slate-200 bg-slate-50">
-                                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700 w-[30%]">User</th>
-                                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700 w-[30%]">Name</th>
-                                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700 w-[30%]">Joined</th>
-                                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700 w-[10%]">Actions</th>
+                                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700 w-[30%]">{t('common.user')}</th>
+                                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700 w-[30%]">{t('common.name')}</th>
+                                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700 w-[30%]">{t('common.joined')}</th>
+                                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700 w-[10%]">{t('common.actions')}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -193,7 +216,7 @@ export default function UsersManagement() {
                                             <div
                                                 className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
                                                 {user.image ? <img
-                                                    src={`data:image/jpeg;base64,${user.image}`}
+                                                    src={`data:image / jpeg;base64, ${user.image}`}
                                                     alt="Profile"
                                                     className="w-10 h-10 rounded-full object-cover border-indigo-50 shadow-sm"
                                                 /> : (user.first_name && user.last_name ?
@@ -202,17 +225,17 @@ export default function UsersManagement() {
                                                 }
                                             </div>
                                             <div>
-                                                <p className="font-semibold text-slate-900">{user.name}</p>
-                                                <p className="text-sm text-slate-500 flex items-center gap-1">
+                                                <p className={`text-sm flex items-center gap-1 ${user.role === 2 ? 'text-red-500' : 'text-slate-500'}`}>
                                                     <Mail className="w-3 h-3"/>
                                                     {user.email}
+                                                    {user.role === 2 && <Crown className="w-3 h-3 text-yellow-600"/>}
                                                 </p>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
                                         <span className="text-sm text-slate-600 flex items-center gap-1">
-                                            <User className={`w-5 h-5 ${user.role === 1 ? "text-green-600" : ''}`}/>
+                                            <User className={` w-5 h-5 ${user.role === 1 ? "text-green-600" : ''}`}/>
                                             {user.first_name} {user.last_name}
                                         </span>
                                     </td>
@@ -222,7 +245,7 @@ export default function UsersManagement() {
                                             {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
                                         </span>
                                     </td>
-                                    <td className="flex flex-row px-6 py-4">
+                                    {(currentUser.userId !== user.id) && <td className="flex flex-row px-6 py-4">
                                         <button
                                             className="p-2 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
                                             onClick={() => {
@@ -233,7 +256,7 @@ export default function UsersManagement() {
                                             <Trash className="w-5 h-5 text-red-600"/>
                                         </button>
                                         {
-                                            user.role !== 1 && (
+                                            user.role === 0 && (
                                                 <button
                                                     className="p-2 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
                                                     onClick={() => {
@@ -245,7 +268,20 @@ export default function UsersManagement() {
                                                 </button>
                                             )
                                         }
-                                    </td>
+                                        {
+                                            user.role === 1 && (
+                                                <button
+                                                    className="p-2 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
+                                                    onClick={() => {
+                                                        setSelectedUserId(user.id)
+                                                        setIsDemoteUserOpen(true)
+                                                    }}
+                                                >
+                                                    <UserRoundX className="w-5 h-5 text-purple-400"/>
+                                                </button>
+                                            )
+                                        }
+                                    </td>}
                                 </tr>
                             ))}
                             </tbody>
@@ -260,6 +296,11 @@ export default function UsersManagement() {
                         <PromoteAdminModal
                             isOpen={isAdminOpen}
                             onClose={() => handleCloseIsAdmin()}
+                            userId={selectedUserId}
+                        />
+                        <DemoteUserModal
+                            isOpen={isDemoteUserOpen}
+                            onClose={() => handleCloseDemoteUser()}
                             userId={selectedUserId}
                         />
                     </div>
@@ -277,11 +318,7 @@ export default function UsersManagement() {
                                 <div key={page} className="flex items-center gap-1">
                                     <button
                                         onClick={() => handleGoToPage(page)}
-                                        className={`px-3 py-2 rounded-lg font-semibold transition-colors ${
-                                            currentPage === page
-                                                ? 'bg-blue-600 text-white'
-                                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                                        }`}
+                                        className={`px-3 py-2 rounded-lg font-semibold transition-colors ${currentPage === page ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
                                     >
                                         {page}
                                     </button>

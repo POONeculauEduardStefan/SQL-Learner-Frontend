@@ -14,6 +14,7 @@ import api from "../../../../services/api.tsx";
 import { getErrorResponseMessage, getSuccessData } from "../../../../utils/responses.jsx";
 import { toast } from "react-toastify";
 import {User} from "lucide-react";
+import {useTranslation} from "react-i18next";
 
 
 ChartJS.register(
@@ -27,6 +28,7 @@ ChartJS.register(
 );
 
 const UserActivityChart = ({ users }) => {
+    const {t} = useTranslation();
     const [selectedUserId, setSelectedUserId] = useState("");
     const [history, setHistory] = useState([]);
 
@@ -108,7 +110,8 @@ const UserActivityChart = ({ users }) => {
                     value={selectedUserId}
                     onChange={(e) => setSelectedUserId(e.target.value)}
                 >
-                    <option value="">Select User to view activity</option>
+                    <option value="">{t('common.select_user_activity')}</option>
+                    <option value="all">{t('common.all_users')}</option>
                     {users && users.map((user) => (
                         <option key={user.id} value={user.id}>
                             ({user.email})
@@ -165,7 +168,7 @@ const UserActivityChart = ({ users }) => {
                     <div className="flex flex-col items-center text-center text-slate-400 gap-5">
                         <User className="w-10 h-10"/>
                         <p className="text-slate-500 italic">
-                            {selectedUserId ? "No activity found for this user." : "Please select a user."}
+                            {selectedUserId ? t('common.no_activity_user') : t('common.select_user')}
                         </p>
                     </div>
                 )}

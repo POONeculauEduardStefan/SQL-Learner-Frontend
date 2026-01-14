@@ -4,8 +4,10 @@ import {CheckCircle, Eye, EyeOff, Lock, Mail, User} from 'lucide-react';
 import {toast} from "react-toastify";
 import api from "../../services/api.js";
 import {getErrorResponseMessage} from "../../utils/responses.jsx";
+import {useTranslation} from "react-i18next";
 
 export default function SignUp() {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [lastName, setLastName] = useState('');
@@ -54,7 +56,8 @@ export default function SignUp() {
         } catch (err) {
             console.log(err);
             const message = getErrorResponseMessage(err)
-            toast.error(message || 'Failed to register');
+            const translatedMessage = t(`backend.${message}`);
+            toast.error(translatedMessage || 'Failed to register');
         } finally {
             setLoading(false);
         }
@@ -64,14 +67,14 @@ export default function SignUp() {
         <div
             className="bg-slate-900/50 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800/50 p-6 sm:p-8 md:p-10">
             <div className="mb-8">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Create Account</h2>
-                <p className="text-slate-400">Start your SQL learning adventure today</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">{t('sign_up.create_account')}</h2>
+                <p className="text-slate-400">{t('sign_up.continue')}</p>
             </div>
 
             <form onSubmit={handleSignUp} className="space-y-4">
                 <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-slate-300 mb-2">
-                        First Name
+                        {t('common.first_name')}
                     </label>
                     <div className="relative group">
                         <User
@@ -90,7 +93,7 @@ export default function SignUp() {
 
                 <div>
                     <label htmlFor="lastName" className="block text-sm font-medium text-slate-300 mb-2">
-                        Last Name
+                        {t('common.last_name')}
                     </label>
                     <div className="relative group">
                         <User
@@ -109,7 +112,7 @@ export default function SignUp() {
 
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                        Email Address
+                        {t('common.email')}
                     </label>
                     <div className="relative group">
                         <Mail
@@ -128,7 +131,7 @@ export default function SignUp() {
 
                 <div>
                     <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
-                        Password
+                        {t('common.password')}
                     </label>
                     <div className="relative group">
                         <Lock
@@ -158,7 +161,7 @@ export default function SignUp() {
 
                 <div>
                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-300 mb-2">
-                        Confirm Password
+                        {t('common.confirm_password')}
                     </label>
                     <div className="relative group">
                         <Lock
@@ -184,16 +187,16 @@ export default function SignUp() {
                     disabled={loading}
                     className="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-3.5 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-blue-500/25 cursor-pointer"
                 >
-                    {loading ? 'Creating Account...' : 'Create Account'}
+                    {loading ? t('sign_up.creating_account') : t('sign_up.create_account')}
                 </button>
             </form>
 
             <div className="mt-8 text-center">
                 <p className="text-slate-400 text-sm">
-                    Already have an account?{' '}
+                    {t('auth.already_have_account')}{' '}
                     <Link to="/dashboard/sign-in"
                           className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-                        Sign In
+                        {t('auth.sign_in')}
                     </Link>
                 </p>
             </div>

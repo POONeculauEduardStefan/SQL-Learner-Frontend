@@ -4,9 +4,11 @@ import {toast} from "react-toastify";
 import api from "../../services/api.js";
 import {Eye, EyeOff, Lock} from 'lucide-react';
 import {getErrorResponseMessage} from "../../utils/responses.jsx";
+import {useTranslation} from "react-i18next";
 
 
 const ResetPassword = () => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,21 +25,21 @@ const ResetPassword = () => {
         setLoading(true);
 
         if(!token) {
-            toast.error("Invalid or missing token");
+            toast.error(t('common.invalid_or_missing_token'));
             return;
         }
         if (!password || !confirmPassword) {
-            toast.error("Please fill in all fields");
+            toast.error(t('common.please_fill_all_fields'));
             return;
         }
 
         if (password !== confirmPassword) {
-            toast.error("Passwords do not match");
+            toast.error(t('error.password_match'));
             return;
         }
 
         if (!validatePassword(password)) {
-            toast.error("Password must be at least 8 characters long, contain 1 uppercase letter, 1 number, and 1 special character");
+            toast.error(t('error.password_requirements'));
             setLoading(false);
             return;
         }
@@ -48,7 +50,7 @@ const ResetPassword = () => {
                 new_password: password,
             })
             if (response.status === 200) {
-                toast.success("Password reset successfully");
+                toast.success(t('success.password_changed'));
                 navigate("/")
             }
         } catch (error) {
@@ -63,14 +65,14 @@ const ResetPassword = () => {
         <div
             className="bg-slate-900/50 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800/50 p-6 sm:p-8 md:p-10">
             <div className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-2">Reset Your Password</h2>
-                <p className="text-slate-400">Enter your token and new password to reset your account password.</p>
+                <h2 className="text-2xl font-bold text-white mb-2">{t('auth.reset_password')}</h2>
+                <p className="text-slate-400">{t('reset_password.continue')}</p>
             </div>
 
             <form onSubmit={handleResetPassword} className="space-y-5">
                 <div>
                     <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
-                        Password
+                        {t('common.password')}
                     </label>
                     <div className="relative group">
                         <Lock
@@ -99,7 +101,7 @@ const ResetPassword = () => {
                 </div>
                 <div>
                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-300 mb-2">
-                        Confirm Password
+                        {t('common.confirm_password')}
                     </label>
                     <div className="relative group">
                         <Lock
@@ -132,16 +134,16 @@ const ResetPassword = () => {
                     disabled={loading}
                     className="w-full mt-8 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-3.5 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-blue-500/25 cursor-pointer"
                 >
-                    {loading ? 'Resetting...' : 'Reset Password'}
+                    {loading ? t('auth.reset_password_loading') : t('auth.reset_password')}
                 </button>
             </form>
 
             <div className="mt-8 text-center">
                 <p className="text-slate-400 text-sm">
-                    Don't have an account?{' '}
+                    {t('auth.no_account')}{' '}
                     <Link to="/auth/sign-up"
                           className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-                        Sign Up
+                        {t('auth.sign_up')}
                     </Link>
                 </p>
             </div>

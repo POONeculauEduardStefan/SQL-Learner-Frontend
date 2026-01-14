@@ -11,8 +11,10 @@ import DeleteEntityModal from "../../DeleteEntityModal.jsx";
 import LaboratoriesList from "./components/LaboratoriesList.jsx";
 import EditLaboratoryModal from "./components/EditLaboratoryModal.jsx";
 import LaboratoryCardHeader from "./components/LaboratoryCardHeader.jsx";
+import {useTranslation} from "react-i18next";
 
 export default function ExercisesManagement() {
+    const {t} = useTranslation();
     const [laboratories, setLaboratories] = useState([]);
     const [exercises, setExercises] = useState([]);
     const [selectedLabId, setSelectedLabId] = useState(null);
@@ -65,7 +67,7 @@ export default function ExercisesManagement() {
             }
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message || 'Failed to load exercises');
+            toast.error(t(`backend.${message}`) || t('exercise_management.load_failed'));
         }
     };
 
@@ -76,7 +78,7 @@ export default function ExercisesManagement() {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 204) {
-                toast.success('Laboratory deleted successfully');
+                toast.success(t('exercise_management.laboratory_delete_success'));
                 await loadLaboratories();
             }
             if (selectedLabId === labId) {
@@ -84,7 +86,7 @@ export default function ExercisesManagement() {
             }
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message || 'Failed to delete laboratory');
+            toast.error(t(`backend.${message}`) || t('exercise_management.laboratory_delete_failure'));
         }
     };
 
@@ -95,12 +97,12 @@ export default function ExercisesManagement() {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 204) {
-                toast.success('Exercise deleted successfully');
+                toast.success(t('exercise_management.exercise_delete_success'));
                 await loadExercises(selectedLabId);
             }
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message || 'Failed to delete exercise');
+            toast.error(t(`backend.${message}`) || t('exercise_management.exercise_delete_failure'));
         }
     };
 
@@ -137,15 +139,15 @@ export default function ExercisesManagement() {
         <div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 mb-2">Exercises Management</h1>
-                    <p className="text-slate-600">Organize exercises by laboratories</p>
+                    <h1 className="text-3xl font-bold text-slate-900 mb-2">{t('exercise_management.title')}</h1>
+                    <p className="text-slate-600">{t('exercise_management.description')}</p>
                 </div>
                 <button
                     onClick={() => setShowLabModal(true)}
                     className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-emerald-500/25 cursor-pointer"
                 >
                     <Plus className="w-5 h-5"/>
-                    <span>Add Laboratory</span>
+                    <span>{t('exercise_management.add_laboratory')}</span>
                 </button>
             </div>
 
@@ -153,18 +155,18 @@ export default function ExercisesManagement() {
                 <div className="lg:col-span-1">
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
                         <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wider mb-4 px-2">
-                            Laboratories
+                            {t('common.labs')}
                         </h2>
 
                         {laboratories.length === 0 ? (
                             <div className="text-center py-8">
                                 <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3"/>
-                                <p className="text-slate-500 text-sm">No laboratories yet</p>
+                                <p className="text-slate-500 text-sm">{t('exercise_management.no_labs_yet')}</p>
                                 <button
                                     onClick={() => setShowLabModal(true)}
                                     className="mt-4 text-blue-600 hover:text-blue-700 font-medium text-sm cursor-pointer"
                                 >
-                                    Create your first lab
+                                    {t('exercise_management.create_first_lab')}
                                 </button>
                             </div>
                         ) : (
@@ -192,15 +194,16 @@ export default function ExercisesManagement() {
                                     <BookOpen className="w-12 h-12 text-slate-400 mx-auto mb-4"/>
                                     <p className="text-slate-500 mb-4">
                                         {searchQuery
-                                            ? 'No exercises found matching your criteria'
-                                            : 'No exercises in this laboratory yet'}
+                                            ? t('exercise_management.no_exercise_matching')
+                                            : t('exercise_management.no_exercises_lab')
+                                        }
                                     </p>
                                     {!searchQuery && (
                                         <button
                                             onClick={() => setShowExerciseModal(true)}
                                             className="text-blue-600 hover:text-blue-700 font-medium cursor-pointer"
                                         >
-                                            Add your first exercise
+                                            {t('exercise_management.add_first_exercise')}
                                         </button>
                                     )}
                                 </div>
@@ -221,8 +224,8 @@ export default function ExercisesManagement() {
                     ) : (
                         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
                             <BookOpen className="w-16 h-16 text-slate-300 mx-auto mb-4"/>
-                            <h3 className="text-xl font-bold text-slate-900 mb-2">No Laboratory Selected</h3>
-                            <p className="text-slate-500">Select or create a laboratory to start adding exercises</p>
+                            <h3 className="text-xl font-bold text-slate-900 mb-2">{t('exercise_management.no_lab_selected')}</h3>
+                            <p className="text-slate-500">{t('exercise_management.select_or_create_lab')}</p>
                         </div>
                     )}
                 </div>
@@ -260,7 +263,7 @@ export default function ExercisesManagement() {
                 onClose={() => setIsDeleteLaboratoryOpen(false)}
                 deleteEntity={handleDeleteLab}
                 entityId={selectedLabId}
-                entityName={"Laboratory"}
+                entityName={t('exercise_management.laboratory')}
             />
             <EditLaboratoryModal
                 isOpen={isEditLaboratoryOpen}

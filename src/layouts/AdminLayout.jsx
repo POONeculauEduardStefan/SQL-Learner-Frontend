@@ -3,15 +3,17 @@ import {Link, Route, Routes, useLocation} from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import {BookOpen, ClipboardPlus, LayoutDashboard, Menu, Users, X} from 'lucide-react';
 import {routes} from "../routes.jsx";
+import {useTranslation} from "react-i18next";
 
 const menuItems = [
-    {path: '/admin', icon: LayoutDashboard, label: 'Dashboard'},
-    {path: '/admin/users', icon: Users, label: 'Users'},
-    {path: '/admin/exercises', icon: BookOpen, label: 'Exercises'},
-    {path: '/admin/reports', icon: ClipboardPlus, label: 'Reports'},
+    {path: '/admin', icon: LayoutDashboard, label: 'dashboard'},
+    {path: '/admin/users', icon: Users, label: 'users'},
+    {path: '/admin/exercises', icon: BookOpen, label: 'exercises'},
+    {path: '/admin/reports', icon: ClipboardPlus, label: 'reports'},
 ];
 
 export default function AdminLayout() {
+    const {t} = useTranslation();
     const location = useLocation();
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -45,7 +47,7 @@ export default function AdminLayout() {
                         <div className="flex items-center justify-between mb-6">
                             <div>
                                 <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
-                                    Admin Panel
+                                    {t('admin.admin_panel')}
                                 </h2>
                             </div>
                             <button
@@ -73,7 +75,7 @@ export default function AdminLayout() {
                                         }`}
                                     >
                                         <Icon className={`w-5 h-5 ${active ? 'text-blue-600' : 'text-slate-500'}`}/>
-                                        <span>{item.label}</span>
+                                        <span>{t(`admin.${item.label}`)}</span>
                                     </Link>
                                 );
                             })}

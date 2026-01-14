@@ -1,8 +1,10 @@
 import {Navigate, Outlet} from "react-router-dom";
 import {useEffect, useState} from "react";
 import api from "../services/api";
+import {useTranslation} from "react-i18next";
 
 export default function ProtectedAuth() {
+    const {t} = useTranslation();
     const [isAuthenticated, setIsAuthenticated] = useState(null);
 
     useEffect(() => {
@@ -37,7 +39,7 @@ export default function ProtectedAuth() {
             <div className="flex justify-center min-h-screen">
                 <div className="flex flex-col min-h-screen items-center justify-center gap-5">
                     <div className="animate-spin rounded-full h-20 w-20 border-b-5 border-blue-600"></div>
-                    <p className="ml-4 text-xl text-blue-600">Loading...</p>
+                    <p className="ml-4 text-xl text-blue-600">{t('common.loading')}</p>
                 </div>
             </div>
         );

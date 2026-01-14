@@ -1,6 +1,6 @@
 import {Navigate, Outlet} from "react-router-dom";
 import api from "../services/api";
-import {createContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 
 
 const AdminContext = createContext({
@@ -10,6 +10,13 @@ const AdminContext = createContext({
     role: null,
 });
 
+export const useAdmin = () => {
+    const context = useContext(AdminContext);
+    if (context === undefined) {
+        throw new Error("useAdmin must be used within a AdminProvider");
+    }
+    return context;
+};
 
 export default function AdminRequired() {
     const [isAdmin, setIsAdmin] = useState(null);
@@ -35,7 +42,7 @@ export default function AdminRequired() {
 
 
                 if (response.status === 200 && response.data?.data.id) {
-                    if (response.data?.data.role !== 1) {
+                    if (response.data?.data.role !== 1 && response.data?.data.role !== 2) {
                         setIsAdmin(false);
                         return;
                     }
@@ -50,7 +57,6 @@ export default function AdminRequired() {
                     setIsAdmin(false);
                 }
             } catch (error) {
-                console.error(error);
                 setIsAdmin(false);
             }
         };

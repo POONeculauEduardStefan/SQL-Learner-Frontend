@@ -1,7 +1,9 @@
 import React from 'react';
 import {getStatusColor, getStatusIcon} from "../../../../utils/statusIcon.jsx";
+import {useTranslation} from "react-i18next";
 
 const ProfileReportCard = ({report}) => {
+    const {t} = useTranslation();
     return (
         <>
             <div className="flex flex-col">
@@ -16,7 +18,7 @@ const ProfileReportCard = ({report}) => {
                     </p>
                 </div>
                 <p className="text-gray-600">
-                    Submitted on: <span
+                    {t('common.submitted_on')} <span
                     className="">{new Date(report.created_at).toLocaleDateString()}</span>
                 </p>
             </div>

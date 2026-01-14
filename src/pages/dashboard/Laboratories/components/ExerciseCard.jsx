@@ -1,5 +1,6 @@
 import React from 'react';
 import {BadgeAlert, BadgeCheck, Bug, Calendar, CircleQuestionMark} from "lucide-react";
+import {useTranslation} from "react-i18next";
 
 const ExerciseCard = ({
                           index,
@@ -9,6 +10,7 @@ const ExerciseCard = ({
                           setIsSolveExerciseOpen,
                           setIsReportExerciseOpen
                       }) => {
+    const {t} = useTranslation();
     return (
         <div
             className="grid grid-cols-1 md:grid-cols-4 gap-3 justify-between bg-slate-50 rounded-xl p-4 hover:bg-blue-50"
@@ -19,23 +21,23 @@ const ExerciseCard = ({
             <div
                 className="md:col-span-3 border-b py-2 md:py-0  md:border-b-0 md:border-r border-slate-200 pr-4 flex-1">
                 <span
-                    className="text-sm font-medium text-blue-600 mb-2 block">{index + 1}. Question:</span>
+                    className="text-sm font-medium text-blue-600 mb-2 block">{index + 1}. {exercise.name}:</span>
                 <p className="text-slate-900 font-mono text-xs break-all">
                     {exercise.request}
                 </p>
                 <p className="flex items-center gap-2 text-xs text-slate-400 mt-2">
-                    <Calendar className="w-3 h-3"/> Added at: {new Date(exercise.created_at).toLocaleDateString()}
+                    <Calendar className="w-3 h-3"/> {t('common.added_at')}: {new Date(exercise.created_at).toLocaleDateString()}
                 </p>
                 <div className="flex mt-4 ml-2 gap-2">
                     <button type="button"
                             onClick={() => setIsSolveExerciseOpen(true)}
                             className=" px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full hover:bg-green-200 transition-colors cursor-pointer">
-                        Solve Exercise
+                        {t('laboratories.solve_exercise')}
                     </button>
                     <button type="button"
                             onClick={() => setIsViewExerciseOpen(true)}
                             className=" px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full hover:bg-blue-200 transition-colors cursor-pointer">
-                        View History
+                        {t('laboratories.view_history')}
                     </button>
                     {exercise.status.total_count ?
                         <button type="button"
@@ -57,10 +59,10 @@ const ExerciseCard = ({
                             </span>
                         </p>
                         <p className="mt-2  text-slate-500">
-                            Success Rate: {exercise.status.success_rate}%
+                            {t('laboratories.success_rate')}: {exercise.status.success_rate? (exercise.status.success_rate).toFixed(2) : 0}%
                         </p>
                         <p className="mt-2  text-slate-500">
-                            Attempts: {exercise.status.total_count}
+                            {t('laboratories.attempts')}: {exercise.status.total_count}
                         </p>
                     </div>
                 ) : (

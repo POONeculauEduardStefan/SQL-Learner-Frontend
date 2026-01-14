@@ -1,15 +1,16 @@
 import React, {useMemo} from 'react';
 import {Pie} from "react-chartjs-2";
 import {ArcElement, Chart as ChartJS, Legend, Tooltip} from 'chart.js';
+import {useTranslation} from "react-i18next";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ExerciseStatsPieChartModel = ({rawStats, fieldFilter, title}) => {
-
+    const {t} = useTranslation();
     const chartData = useMemo(() => {
         if (!rawStats || rawStats.length === 0) return null;
         return {
-            labels: rawStats.map(stat => stat.exercise_id),
+            labels: rawStats.map(stat => stat.exercise_name),
             datasets: [
                 {
                     label: 'Count',
@@ -42,6 +43,7 @@ const ExerciseStatsPieChartModel = ({rawStats, fieldFilter, title}) => {
             <div className="h-80 w-full flex items-center justify-center">
                 {chartData ? (
                     <Pie
+                        height={400}
                         data={chartData}
                         options={{
                             responsive: true,
@@ -68,7 +70,7 @@ const ExerciseStatsPieChartModel = ({rawStats, fieldFilter, title}) => {
                         }}
                     />
                 ) : (
-                    <p className="text-gray-500">There is no data to display.</p>
+                    <p className="text-gray-500">{t('stats.there_is_no_data')}</p>
                 )}
             </div>
         </div>

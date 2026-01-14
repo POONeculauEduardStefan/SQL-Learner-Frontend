@@ -3,8 +3,10 @@ import {Loader2, X} from 'lucide-react';
 import {toast} from "react-toastify";
 import api from "../../../services/api.tsx";
 import {getErrorResponseMessage} from "../../../utils/responses.jsx";
+import {useTranslation} from "react-i18next";
 
 export default function PromoteAdminModal({isOpen, onClose, userId}) {
+    const {t} = useTranslation();
     const [loading, setLoading] = useState(false);
     const [mouseDownTarget, setMouseDownTarget] = useState(null);
 
@@ -12,18 +14,18 @@ export default function PromoteAdminModal({isOpen, onClose, userId}) {
         const token = localStorage.getItem("token");
         setLoading(true);
         try {
-            const response = await api.put(`http://127.0.0.1:8000/api/v1/admin/users/promote/${userId}`,{}, {
+            const response = await api.put(`http://127.0.0.1:8000/api/v1/admin/users/promote/${userId}`, {}, {
                 headers: {Authorization: `Bearer ${token}`},
             });
             console.log(response);
             if (response.status === 204) {
-                toast.success('User promoted to admin successfully');
+                toast.success(t('users_management.user_promoted_success'));
                 onClose();
             }
-        }catch (error) {
+        } catch (error) {
             const message = getErrorResponseMessage(error);
-            toast.error(message || 'Failed to promote user');
-        }finally {
+            toast.error(t(`backend.${message}`) || t('users_management.user_promotion_failed'));
+        } finally {
             setLoading(false);
         }
     }
@@ -64,8 +66,9 @@ export default function PromoteAdminModal({isOpen, onClose, userId}) {
                     </button>
                 </div>
 
-                <div  className="p-6">
-                    <p className="text-slate-600 mb-6">This action is gonna give admin rights to this user. Are you sure?</p>
+                <div className="p-6">
+                    <p className="text-slate-600 mb-6">This action is gonna give admin rights to this user. Are you
+                        sure?</p>
 
                     <div className="flex gap-3">
                         <button

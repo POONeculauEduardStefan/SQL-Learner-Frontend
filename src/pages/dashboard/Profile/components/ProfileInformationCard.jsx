@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {CheckCircle, Eye, EyeOff, Lock, Mail, Save, User, X} from "lucide-react";
+import {useTranslation} from "react-i18next";
 
 const ProfileInformationCard = ({
                                     isEditing,
@@ -13,6 +14,7 @@ const ProfileInformationCard = ({
                                     saving,
                                     user
                                 }) => {
+    const {t} = useTranslation();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
@@ -28,7 +30,7 @@ const ProfileInformationCard = ({
                     <>
                         <form onSubmit={handleSubmit} className="mb-4">
                             <div className="flex items-center justify-between mb-3">
-                                <h3 className="text-xl sm:text-2xl font-bold text-slate-900">Edit Profile</h3>
+                                <h3 className="text-xl sm:text-2xl font-bold text-slate-900">{t('profile.edit_profile')}</h3>
                                 <button
                                     type="button"
                                     onClick={handleClose}
@@ -42,7 +44,7 @@ const ProfileInformationCard = ({
                                 <div>
                                     <label htmlFor="firstName"
                                            className="block text-sm font-medium text-slate-700 mb-2">
-                                        First Name
+                                        {t('common.first_name')}
                                     </label>
                                     <div className="relative">
                                         <User
@@ -65,7 +67,7 @@ const ProfileInformationCard = ({
                                 <div>
                                     <label htmlFor="lastName"
                                            className="block text-sm font-medium text-slate-700 mb-2">
-                                        Last Name
+                                        {t('common.last_name')}
                                     </label>
                                     <div className="relative">
                                         <User
@@ -88,7 +90,7 @@ const ProfileInformationCard = ({
                                 <div>
                                     <label htmlFor="email"
                                            className="block text-sm font-medium text-slate-700 mb-2">
-                                        Email Address
+                                        {t('common.email')}
                                     </label>
                                     <div className="relative">
                                         <Mail
@@ -101,7 +103,7 @@ const ProfileInformationCard = ({
                                             className="w-full pl-12 pr-4 py-3.5 border border-slate-300 rounded-xl bg-slate-50 text-slate-500 cursor-not-allowed"
                                         />
                                     </div>
-                                    <p className="mt-2 text-xs text-slate-500">Email cannot be changed</p>
+                                    <p className="mt-2 text-xs text-slate-500">{t('error.email_cannot_be_changed')}</p>
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row gap-3 pt-4">
@@ -111,14 +113,14 @@ const ProfileInformationCard = ({
                                         className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                                     >
                                         <Save className="w-4 h-4"/>
-                                        <span>{saving ? 'Saving...' : 'Save Changes'}</span>
+                                        <span>{saving ? t('common.save_loading') : t('common.save_changes')}</span>
                                     </button>
                                     <button
                                         type="button"
                                         onClick={handleCloseModal}
                                         className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3.5 rounded-xl transition-colors cursor-pointer"
                                     >
-                                        Cancel
+                                        {t('common.cancel')}
                                     </button>
                                 </div>
                             </div>
@@ -128,7 +130,7 @@ const ProfileInformationCard = ({
                             <div>
                                 <label htmlFor="password"
                                        className="block text-sm font-medium text-slate-700 mb-2">
-                                    Current Password
+                                    {t('common.current_password')}
                                 </label>
                                 <div className="relative">
                                     <Lock
@@ -161,7 +163,7 @@ const ProfileInformationCard = ({
                             <div>
                                 <label htmlFor="confirmPassword"
                                        className="block text-sm font-medium text-slate-700 mb-2">
-                                    New Password
+                                    {t('common.new_password')}
                                 </label>
                                 <div className="relative">
                                     <Lock
@@ -194,7 +196,7 @@ const ProfileInformationCard = ({
                             <div>
                                 <label htmlFor="confirmNewPassword"
                                        className="block text-sm font-medium text-slate-700 mb-2">
-                                    Confirm New Password
+                                    {t('common.confirm_new_password')}
                                 </label>
                                 <div className="relative">
                                     <Lock
@@ -223,14 +225,14 @@ const ProfileInformationCard = ({
                                     className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                                 >
                                     <Save className="w-4 h-4"/>
-                                    <span>{saving ? 'Saving...' : 'Change Password'}</span>
+                                    <span>{saving ? t('common.save_loading') : t('common.change_password')}</span>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={handleCloseModal}
                                     className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3.5 rounded-xl transition-colors cursor-pointer"
                                 >
-                                    Cancel
+                                    {t('common.cancel')}
                                 </button>
                             </div>
                         </form>
@@ -238,38 +240,35 @@ const ProfileInformationCard = ({
 
                 ) : (
                     <div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6">Profile
-                            Information</h3>
+                        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6">{t('profile_information.title')}</h3>
 
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm font-medium text-slate-500 mb-2">Full
-                                    Name</label>
+                                <label className="block text-sm font-medium text-slate-500 mb-2">{t('common.full_name')}</label>
                                 <p className="text-lg text-slate-900 font-medium">
                                     {user?.first_name + ' ' + user?.last_name || 'No Name'}
                                 </p>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-500 mb-2">Email
-                                    Address</label>
+                                <label className="block text-sm font-medium text-slate-500 mb-2">{t('common.email')}</label>
                                 <p className="text-lg text-slate-900 font-medium break-all">{user?.email}</p>
                             </div>
                         </div>
 
                         <div className="mt-8 pt-8 border-t border-slate-200">
-                            <h4 className="text-lg font-semibold text-slate-900 mb-4">Account Statistics</h4>
+                            <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('common.account_statistics')}</h4>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                 <div className="bg-slate-50 rounded-xl p-4">
-                                    <p className="text-sm text-slate-600 mb-1">Labs</p>
+                                    <p className="text-sm text-slate-600 mb-1">{t('common.labs')}</p>
                                     <p className="text-2xl font-bold text-blue-600">{userStats.laboratory_count}</p>
                                 </div>
                                 <div className="bg-slate-50 rounded-xl p-4">
-                                    <p className="text-sm text-slate-600 mb-1">Exercises</p>
+                                    <p className="text-sm text-slate-600 mb-1">{t('common.exercises')}</p>
                                     <p className="text-2xl font-bold text-emerald-600">{userStats.exercises_count}</p>
                                 </div>
                                 <div className="bg-slate-50 rounded-xl p-4 col-span-2 sm:col-span-1">
-                                    <p className="text-sm text-slate-600 mb-1">Queries</p>
+                                    <p className="text-sm text-slate-600 mb-1">{t('common.queries')}</p>
                                     <p className="text-2xl font-bold text-amber-600">{userStats.query_count}</p>
                                 </div>
                             </div>

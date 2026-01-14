@@ -3,8 +3,10 @@ import {Loader2, X} from 'lucide-react';
 import {getErrorResponseMessage} from "../../../../utils/responses.jsx";
 import {toast} from "react-toastify";
 import api from "../../../../services/api.tsx";
+import {useTranslation} from "react-i18next";
 
 export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
+    const {t} = useTranslation();
     const [formData, setFormData] = useState({
         title: '',
         order_index: 0,
@@ -27,14 +29,14 @@ export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
                 headers: {Authorization: `Bearer ${token}`},
             })
             if (response.status === 201) {
-                toast.success("Laboratory created successfully");
+                toast.success(t('exercise_management.laboratory_create_success'));
             }
             setFormData({title: '', order_index: 0});
             onSuccess();
             onClose();
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message || 'Failed to create laboratory');
+            toast.error(t(`backend.${message}`) || t('exercise_management.laboratory_create_failure'));
         } finally {
             setLoading(false);
         }
@@ -67,7 +69,7 @@ export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
             <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
                 <div
                     className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-slate-900">Create New Laboratory</h2>
+                    <h2 className="text-2xl font-bold text-slate-900">{t('exercise_management.create_new_lab')}</h2>
                     <button
                         onClick={handleClose}
                         disabled={loading}
@@ -82,7 +84,7 @@ export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
                     <div className="space-y-5">
                         <div>
                             <label htmlFor="title" className="block text-sm font-semibold text-slate-700 mb-2">
-                                Laboratory Title *
+                                {t('common.laboratory_title')} *
                             </label>
                             <input
                                 id="title"
@@ -97,7 +99,7 @@ export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
 
                         <div>
                             <label htmlFor="order_index" className="block text-sm font-semibold text-slate-700 mb-2">
-                                Order Index
+                                {t('common.order_index')}
                             </label>
                             <input
                                 id="order_index"
@@ -108,7 +110,7 @@ export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
                                 min="0"
                                 disabled={loading}
                             />
-                            <p className="mt-1 text-xs text-slate-500">Lower numbers appear first</p>
+                            <p className="mt-1 text-xs text-slate-500">{t('common.lower_numbers_appear_first')}</p>
                         </div>
                     </div>
 
@@ -119,7 +121,7 @@ export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
                             disabled={loading}
                             className="flex-1 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
                         >
-                            Cancel
+                            {t('common.cancel')}
                         </button>
                         <button
                             type="submit"
@@ -129,10 +131,10 @@ export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
                             {loading ? (
                                 <>
                                     <Loader2 className="w-5 h-5 animate-spin"/>
-                                    <span>Creating...</span>
+                                    <span>{t('common.create_loading')}</span>
                                 </>
                             ) : (
-                                <span>Create Laboratory</span>
+                                <span>{t('exercise_management.create_lab')}</span>
                             )}
                         </button>
                     </div>

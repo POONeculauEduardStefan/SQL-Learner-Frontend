@@ -3,8 +3,10 @@ import {Loader2, X} from 'lucide-react';
 import {getErrorResponseMessage} from "../../../../utils/responses.jsx";
 import {toast} from "react-toastify";
 import api from "../../../../services/api.tsx";
+import {useTranslation} from "react-i18next";
 
 export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratoryId}) {
+    const {t} = useTranslation();
     const [formData, setFormData] = useState({
         request: '',
         response: '',
@@ -27,7 +29,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
                 );
 
                 if (response.status === 201) {
-                    toast.success("Exercise created successfully");
+                    toast.success(t('exercise_management.exercise_create_success'));
                 }
                 setFormData({
                     request: '',
@@ -40,7 +42,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
             } catch
                 (err) {
                 const message = getErrorResponseMessage(err);
-                toast.error(message || 'Failed to create exercise');
+                toast.error(t(`backend.${message}`) || t('exercise_management.exercise_create_failure'));
             } finally {
                 setLoading(false);
             }
@@ -77,7 +79,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
             <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                 <div
                     className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-slate-900">Create New Exercise</h2>
+                    <h2 className="text-2xl font-bold text-slate-900">{t('exercise_management.create_new_exercise')}</h2>
                     <button
                         onClick={handleClose}
                         disabled={loading}
@@ -91,7 +93,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
                     <div className="space-y-5">
                         <div>
                             <label htmlFor="request" className="block text-sm font-semibold text-slate-700 mb-2">
-                                Question/Prompt *
+                                {t('common.question_prompt')} *
                             </label>
                             <textarea
                                 id="request"
@@ -99,7 +101,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
                                 onChange={(e) => setFormData({...formData, request: e.target.value})}
                                 rows={4}
                                 className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none font-mono text-sm"
-                                placeholder="Write the exercise question here..."
+                                placeholder={t('exercise_management.write_exercise_question')}
                                 required
                                 disabled={loading}
                             />
@@ -107,7 +109,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
 
                         <div>
                             <label htmlFor="response" className="block text-sm font-semibold text-slate-700 mb-2">
-                                SQL response *
+                                {t('common.sql_response')} *
                             </label>
                             <textarea
                                 id="response"
@@ -124,7 +126,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
                         <div>
                             <label htmlFor="order_index"
                                    className="block text-sm font-semibold text-slate-700 mb-2">
-                                Order Index
+                                {t('common.order_index')}
                             </label>
                             <input
                                 id="order_index"
@@ -138,7 +140,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
                                 min="0"
                                 disabled={loading}
                             />
-                            <p className="mt-1 text-xs text-slate-500">Lower numbers appear first</p>
+                            <p className="mt-1 text-xs text-slate-500">{t('common.lower_numbers_appear_first')}</p>
                         </div>
                     </div>
 
@@ -149,7 +151,7 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
                             disabled={loading}
                             className="flex-1 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-colors disabled:opacity-50"
                         >
-                            Cancel
+                            {t('common.cancel')}
                         </button>
                         <button
                             type="submit"
@@ -159,10 +161,10 @@ export default function AddExerciseModal({isOpen, onClose, onSuccess, laboratory
                             {loading ? (
                                 <>
                                     <Loader2 className="w-5 h-5 animate-spin"/>
-                                    <span>Creating...</span>
+                                    <span>{t('common.create_loading')}</span>
                                 </>
                             ) : (
-                                <span>Create Exercise</span>
+                                <span>{t('exercise_management.create_exercise')}</span>
                             )}
                         </button>
                     </div>

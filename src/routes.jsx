@@ -13,6 +13,7 @@ import ReportsManagement from "./pages/admin/Reports/ReportsManagement.jsx";
 import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
 import ConfirmEmail from "./pages/auth/ConfirmEmail.jsx";
+import Courses from "./pages/dashboard/Courses/Courses.jsx";
 
 export const routes = [
     {
@@ -32,6 +33,11 @@ export const routes = [
                 name: "Laboratories",
                 path: "/laboratories",
                 component: <Laboratories/>,
+            },
+            {
+                name: "Courses",
+                path: "/courses",
+                component: <Courses/>,
             },
             {
                 name: "Practice",

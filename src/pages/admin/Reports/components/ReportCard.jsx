@@ -2,6 +2,7 @@ import React from 'react';
 import {Calendar, ChevronDown, Edit2, Eye, Trash2, User} from "lucide-react";
 import ExpandedReportCard from "./ExpandedReportCard.jsx";
 import {getStatusColor, getStatusIcon} from "../../../../utils/statusIcon.jsx";
+import {useTranslation} from "react-i18next";
 
 const ReportCard = ({
                         report,
@@ -13,7 +14,7 @@ const ReportCard = ({
                         setIsDeleteReportOpen,
                         setSelectedReportId
                     }) => {
-
+    const {t} = useTranslation();
     return (
         <div
             key={report.id}
@@ -32,7 +33,7 @@ const ReportCard = ({
                                                 </span>
                             </div>
                         </div>
-                        <p className="text-sm text-slate-600 mb-3">Exercise ID: {report.exercise_id}</p>
+                        <p className="text-sm text-slate-600 mb-3">{t('common.exercise_id')}: {report.exercise_id}</p>
                         <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
                                           <span className="inline-flex items-center gap-1.5">
                                             <User className="w-3.5 h-3.5"/>

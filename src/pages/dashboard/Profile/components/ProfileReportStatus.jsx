@@ -4,8 +4,10 @@ import {getErrorResponseMessage, getSuccessData} from "../../../../utils/respons
 import {toast} from "react-toastify";
 import ProfileReportStatusModal from "./ProfileReportStatusModal.jsx";
 import ProfileReportCard from "./ProfileReportCard.jsx";
+import {useTranslation} from "react-i18next";
 
 const ProfileReportStatus = () => {
+        const {t} = useTranslation();
         const [reports, setReports] = useState([]);
         const [isModalOpen, setIsModalOpen] = useState(false);
         const [selectedReport, setSelectedReport] = useState(null);
@@ -32,10 +34,10 @@ const ProfileReportStatus = () => {
             <div
                 className="lg:col-span-1 bg-white rounded-2xl shadow-sm border border-slate-200 p-3 sm:p-5 max-h-[500px] overflow-y-auto">
                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                    Report History
+                    {t('report_history.title')}
                 </h3>
                 {reports.length === 0 ? (
-                    <p className="text-gray-600">No reports found.</p>
+                    <p className="text-gray-600">{t('report_history.no_reports')}</p>
                 ) : (
                     <ul className="space-y-4 mt-1">
                         {reports.map((report, index) => (

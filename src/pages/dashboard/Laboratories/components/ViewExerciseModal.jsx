@@ -6,8 +6,11 @@ import {toast} from "react-toastify";
 import ColumnsDetails from "./history/ColumnsDetails.jsx";
 import RowsDetails from "./history/RowsDetails.jsx";
 import HistoryList from "./history/HistoryList.jsx";
+import {useTranslation} from "react-i18next";
+import ReturnedRowsDetails from "./history/ReturnedRowsDetails.jsx";
 
 const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
+    const {t} = useTranslation();
     const [loading, setLoading] = useState(false);
     const [mouseDownTarget, setMouseDownTarget] = useState(null);
     const [history, setHistory] = useState([]);
@@ -66,8 +69,8 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
             <div
                 className="bg-white p-2 rounded-2xl shadow-xl w-[90%] max-h-[90vh] min-h-[70vh] overflow-y-auto lg:p-5">
                 <div
-                    className="sticky top-0 bg-white border-b border-slate-200 px-4 flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-slate-900">History</h2>
+                    className="bg-white border-b border-slate-200 px-4 flex items-center justify-between">
+                    <h2 className="text-2xl font-bold text-slate-900">{t('common.history')}</h2>
                     <button
                         onClick={handleClose}
                         disabled={loading}
@@ -87,9 +90,9 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
                             </div>
                         </div>
                         <div className="flex flex-col p-4">
-                            <h3 className="text-base font-bold text-slate-900">History Details</h3>
+                            <h3 className="text-base font-bold text-slate-900">{t('common.history_details')}</h3>
                             {selectedHistoryItem ? (
-                                    <div className="mt-2  h-[400px]">
+                                    <div className="mt-2 h-[400px]">
                                         <p
                                             className="w-full text-sm px-2 py-2 border border-slate-300 rounded-xl bg-slate-100 text-slate-700 outline-none transition-all font-mono break-all max-h-[100px] overflow-y-auto"
                                             style={{scrollbarWidth: "none"}}
@@ -104,15 +107,11 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
                                                 {selectedHistoryItem.result_details.message}
                                             </p>
                                         }
-                                        {selectedHistoryItem.success === false &&
-                                            <RowsDetails selectedHistoryItem={selectedHistoryItem}/>}
-                                        {selectedHistoryItem.success === false &&
-                                            <ColumnsDetails selectedHistoryItem={selectedHistoryItem}/>}
                                         {selectedHistoryItem && selectedHistoryItem.success && (
-                                            <div className="mt-4 border-t border-slate-200">
+                                            <div className="mt-4 border-t border-slate-200 py-4">
                                                 <p
                                                     className="mt-4 text-sm font-medium text-slate-700"
-                                                >Rows returned:
+                                                >{t('common.rows_returned')}:
                                                     <span
                                                         className="font-semibold text-green-600 ml-1">
                                                         {selectedHistoryItem.result_details.rows_count}
@@ -120,21 +119,27 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
                                                 </p>
                                                 <p
                                                     className="mt-2 text-sm font-medium text-slate-700"
-                                                >Columns returned:
+                                                >{t('common.columns_returned')}:
                                                     <span
                                                         className="font-semibold text-green-600 ml-1"
                                                     >
                                                         {selectedHistoryItem.result_details.columns_count}
                                                     </span>
                                                 </p>
-                                                <div className=" pt-4 flex flex-col items-center">
-                                                    <p className="font-semibold text-green-600 mb-2">The query was
-                                                        successful!</p>
-                                                    <BadgeCheck
-                                                        className="w-12 h-12 text-green-600 mx-auto"/>
-                                                </div>
+                                                {/*<div className=" pt-4 flex flex-col items-center">*/}
+                                                {/*    <p className="font-semibold text-green-600 mb-2">The query was*/}
+                                                {/*        successful!</p>*/}
+                                                {/*    <BadgeCheck*/}
+                                                {/*        className="w-12 h-12 text-green-600 mx-auto"/>*/}
+                                                {/*</div>*/}
                                             </div>
                                         )}
+                                        {selectedHistoryItem.success === true &&
+                                            <ReturnedRowsDetails selectedHistoryItem={selectedHistoryItem}/>}
+                                        {selectedHistoryItem.success === false &&
+                                            <RowsDetails selectedHistoryItem={selectedHistoryItem}/>}
+                                        {selectedHistoryItem.success === false &&
+                                            <ColumnsDetails selectedHistoryItem={selectedHistoryItem}/>}
                                     </div>
                                 )
                                 : (
@@ -142,7 +147,7 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
                                         className="bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center  flex flex-col items-center justify-center  h-[400px]">
                                         <BookOpen className="w-12 h-12 text-slate-400 mx-auto mb-4"/>
                                         <h2 className="text-slate-500 mb-4">
-                                            Select a history item to view details
+                                            {t('common.select_history')}
                                         </h2>
                                     </div>
                                 )
