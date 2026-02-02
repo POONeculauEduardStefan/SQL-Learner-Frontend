@@ -40,7 +40,7 @@ export default function EditExerciseModal({isOpen, onClose, onSuccess, exercise,
         try {
             const token = localStorage.getItem("token");
             const response = await api.put(
-                `http://localhost:8000/api/v1/exercise/${exercise.id}`,
+                `http://127.0.0.1:8000/api/v1/exercise/${exercise.id}`,
                 formData,
                 {headers: {Authorization: `Bearer ${token}`}}
             );

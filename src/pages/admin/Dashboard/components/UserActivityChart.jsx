@@ -40,7 +40,7 @@ const UserActivityChart = ({ users }) => {
 
         const fetchHistory = async () => {
             try {
-                const response = await api.get(`http://localhost:8000/api/v1/exercise_history/by-user-id/${selectedUserId}`, {
+                const response = await api.get(`http://127.0.0.1:8000/api/v1/exercise_history/by-user-id/${selectedUserId}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
@@ -137,7 +137,7 @@ const UserActivityChart = ({ users }) => {
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: "Count of Exercises Completed by Month"
+                                    text: t('stats.users_chart_title')
                                 },
                                 legend: {
                                     display: false,

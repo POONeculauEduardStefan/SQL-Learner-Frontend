@@ -55,7 +55,7 @@ export default function DemoteUserModal({isOpen, onClose, userId}) {
             <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
                 <div
                     className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                    <h2 className="text-xl font-bold text-slate-900">Demote user?</h2>
+                    <h2 className="text-xl font-bold text-slate-900">{t('users_management.demote_user')}?</h2>
                     <button
                         onClick={handleClose}
                         disabled={loading}
@@ -66,8 +66,7 @@ export default function DemoteUserModal({isOpen, onClose, userId}) {
                 </div>
 
                 <div className="p-6">
-                    <p className="text-slate-600 mb-6">This action is gonna revoke the admin rights from this user. Are
-                        you sure?</p>
+                    <p className="text-slate-600 mb-6">{t('users_management.demote_description')}</p>
 
                     <div className="flex gap-3">
                         <button
@@ -76,7 +75,7 @@ export default function DemoteUserModal({isOpen, onClose, userId}) {
                             disabled={loading}
                             className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
                         >
-                            Cancel
+                            {t('common.cancel')}
                         </button>
                         <button
                             type="button"
@@ -87,10 +86,10 @@ export default function DemoteUserModal({isOpen, onClose, userId}) {
                             {loading ? (
                                 <>
                                     <Loader2 className="w-5 h-5 animate-spin"/>
-                                    <span>Demoting...</span>
+                                    <span>{t('users_management.demote_loading')}</span>
                                 </>
                             ) : (
-                                <span>Demote user</span>
+                                <span>{t('users_management.demote_user')}</span>
                             )}
                         </button>
                     </div>

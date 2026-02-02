@@ -51,7 +51,7 @@ const Course1 = () => {
                 a altei relaţii ( sau chiar a relaţiei curente, caz în care o numim cheie străină recursivă).</p>
             <p>Obţinerea de informaţii din baza de date se realizează cu ajutorul interogărilor SQL. Rezultatul unei
                 interogări este un nou tabel</p>
-            <p className="text-bold">Algebra relaţională</p>
+            <p className="font-bold">Algebra relaţională</p>
             <ul className="list-disc pl-5">
                 <li>Un limbaj formal</li>
                 <li>Operatorii de bază din algebra relaţională: selecţie, proiecţie, produs cartezian, intersecţie,
@@ -59,7 +59,7 @@ const Course1 = () => {
                 </li>
                 <li>Bazată pe mulţimi (duplicatele se elimină)</li>
             </ul>
-            <h2>Limbajul SQL</h2>
+            <h2 className="text-2xl text-blue-500">Limbajul SQL</h2>
             <p>SQL - Structured Query Language</p>
             <ul className="list-disc pl-5">
                 <li>limbajul utilizat în manipularea bazelor de date relaţionale</li>
@@ -178,7 +178,7 @@ const Course1 = () => {
        [ORDER BY exp1 [ASC/DESC] [,exp2...]]`}
     </pre>
             </div>
-            <h3 className="text-xl text-blue-500">Tipuri de date (în Oracle)</h3>
+            <h2 className="text-2xl text-blue-500">Tipuri de date (în Oracle)</h2>
             <table
             className="table-auto border-collapse border border-slate-400 w-full bg-slate-50 dark:bg-slate-800">
                 <thead
@@ -188,7 +188,7 @@ const Course1 = () => {
                     <th className="text-left pr-4 border">Proprietăţi</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className = "dark:text-slate-200">
                 <tr>
                     <td className="text-left pr-4 border">CHAR(n)</td>
                     <td className="text-left pr-4 border">Şiruri de lungime fixă n (1 caracter e stocat pe 1 octet). Dacă valorile introduse au mai puţine caractere se adaugă blanks (spaţii) la sfarşit ; dacă valorile introduse conţin mai multe caractere apare eroare (VALUE_ERROR)</td>
@@ -199,14 +199,18 @@ const Course1 = () => {
                 </tr>
                 <tr>
                     <td className="text-left pr-4 border">NUMBER</td>
-                    <td className="text-left pr-4 border">Corespunde numerelor în virgulă fixă şi mobilă. Numere în intervalul (-10126, 10126), infinit (pozitiv şi negativ)</td>
+                    <td className="text-left pr-4 border">Corespunde numerelor în virgulă fixă şi mobilă. Numere în intervalul (-10<sup>126</sup>, 10<sup>126</sup>), infinit (pozitiv şi negativ)</td>
                 </tr>
                 <tr>
                     <td className="text-left pr-4 border">NUMBER(n1, n2)</td>
                     <td className="text-left pr-4 border">Numere ce conţin în total n1 zecimale semnificative, n2 precizând numărul de cifre de la punctual zecimal până la cea mai puţin semnificativă cifră. n2 poate lua valori negative, caz în care se face rotunjirea pe numărul de poziţii specificate în stânga punctului zecimal. Ex. pentru tipul NUMBER(5,-2), introducerea valorii 12345 generează valoarea 12300 iar pentru 12399 generează 12400</td>
                 </tr>
                 <tr>
-                    <td className="align-top pr-4 border">NLOB (large object):
+                    <td className="text-left pr-4 border">DATE</td>
+                    <td className="text-left pr-4 border">Reprezintă un moment de timp stocând anul, luna, ziua, orele minutele şi secundele</td>
+                </tr>
+                <tr>
+                    <td className="align-top pr-4 border">LOB (large object):
                         BLOB, CLOB, NCLOB, BFILE</td>
                     <td className="align-top pr-4 border">Permit stocarea în format binar sau caracter a datelor nestructurate precum text, imagini, videoclipuri…</td>
                 </tr>
@@ -215,7 +219,7 @@ const Course1 = () => {
             <p>Pentru compatibilitate cu alte sisteme, Oracle suportă şi tipuri precum: decimal, integer, smallint, real; reprezentarea lor internă este însă definită de formatul tipului number.</p>
             <p>O listă completă găsiți la adresa: http://download.oracle.com/docs/cd/B19306_01/server.102/b14200/sql_elements001.htm sau la https://docs.oracle.com/cd/E11882_01/appdev.112/e25519/predefined.htm#LNPLS2047</p>
             <p><span className="font-bold">{'NULL'}</span> este o valoare specială care semnifică lipsa informaţiei. Ambele teste {'NULL'}={'NULL'} şi {'NULL'}{'<>'}{'NULL'} returnează FALSE. Verificarea (in)egalităţii cu {'NULL'} se face utilizând IS [NOT] {'NULL'}.</p>
-            <h3 className="text-xl text-blue-500">Schema bazei de date - studiu de caz</h3>
+            <h2 className="text-2xl text-blue-500">Schema bazei de date - studiu de caz</h2>
             <p>Fiecare facultate a unei universităţi are nevoie să-şi facă managementul intern al studenţilor pe care îi are. Spre exemplu, un aspect important în cadrul secretariatului este cunoaşterea notelor pe care studenţii le-au luat la diversele materii pe care le-au studiat. Pe baza acestor informaţii, se poate decide dacă studentul va avea sau nu bursă, dacă va primi sau nu cazare în anul ce urmează sau daca va trebui să repete o anumită materie. Deşi aceste informaţii sunt disponibile în format clasic, în cataloage, este mult mai uşor de lucrat cu un număr mare de studenţi atunci când aceştia sunt stocaţi într-o bază de date.</p>
             <p>În afara informaţiilor referitoare la studenţi (nume, prenume, anul în care sunt înmatriculaţi, etc.) ce ar putea forma o tabelă într-o bază de date, şi alte informaţii precum notele sau numele cursurilor la care au participat trebuie să fie stocate. Nu este natural ca aceste informaţii să fie stocate împreună cu informaţiile personale ale studentului (de exemplu din cauză ca participarea la doua cursuri diferite ar presupune introducerea de doua ori - ca şi înregistrari diferite în tabelă - a aceloraşi informaţii privitoare la student) şi din acest motiv sunt necesare tabele suplimentare.</p>
             <p>În cadrul laboratorului de baze de date, vom folosi tabelele studenti, cursuri, note şi profesori, ce au urmatoarele structuri:</p>
@@ -256,6 +260,43 @@ const Course1 = () => {
                 <li>id_prof - câmp alfanumeric de 4 caractere ce nu poate fi null;</li>
                 <li>id_curs - câmp alfanumeric de 4 caractere ce nu poate fi null.</li>
             </ul>
+            
+            <p className="text-[#0f9d58]">1. Creaţi aceste tabele utilizând contul student.</p>
+            <p className="text-[#0f9d58]">2. Inseraţi în baza de date nou creată un student Popescu Ionut, 
+                proaspat înmatriculat în anul 2 care a luat nota 10 la 
+                materia Logica pentru informatica 
+                predata de Cristian Masalagiu în primul semestru din anul 1.</p>
+            <p className="text-[#0f9d58]">3. Executaţi comanda de mai jos pentru a rula un script de creare care are rolul de a 
+                    crea toate tabelele de mai sus şi de a le popula cu date. Studiati continutul scriptului.</p>
+            
+            <p>Executaţi comanda:</p>
+
+            <div
+                className="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg overflow-x-auto border-2 border-dashed border-slate-200 dark:border-slate-700 shadow-sm">
+                <pre className="font-mono text-sm text-slate-800 dark:text-slate-200">
+                    {`@ C:/temp/facultate.sql`}
+                </pre>
+            </div>
+
+            <p>Pentru a vedea care sunt tabelele unui utilizator se va executa:</p>
+
+            <div
+                className="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg overflow-x-auto border-2 border-dashed border-slate-200 dark:border-slate-700 shadow-sm">
+                <pre className="font-mono text-sm text-slate-800 dark:text-slate-200">
+                    {`SELECT table_name FROM user_tables;`}
+                </pre>
+            </div>
+
+            <p>Pentru a vedea care este structura unei tabele (în cazul în care aţi uitat spre exemplu din cate litere poate fi format numele de familie 
+                al unui student), puteti executa comanda SQL*Plus describe:</p>
+            
+            <div
+                className="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg overflow-x-auto border-2 border-dashed border-slate-200 dark:border-slate-700 shadow-sm">
+                <pre className="font-mono text-sm text-slate-800 dark:text-slate-200">
+                    {`DESCRIBE nume_tabel`}
+                </pre>
+            </div>
+
         </div>
     );
 };

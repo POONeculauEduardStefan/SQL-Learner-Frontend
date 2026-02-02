@@ -33,6 +33,7 @@
     "queries": "Queries",
     "report": "Report",
     "report_details": "Report Details",
+    "report_request": "Report Request",
     "no_results_display": "No results to display",
     "history": "History",
     "answer": "Answer",
@@ -55,12 +56,14 @@
     "create_loading": "Creating...",
     "view_edit": "View/Edit",
     "question_prompt": "Question/Prompt",
+    "ai_description": "AI Description",
     "sql_response": "SQL Response",
     "exercise_id": "Exercise ID",
     "exercise_name": "Exercise name",
     "open": "Open",
     "in_progress": "In Progress",
     "resolved": "Resolved",
+    "all": "All",
     "update": "Update",
     "resolution": "Resolution",
     "resolution_notes": "Resolution Notes",
@@ -80,7 +83,11 @@
     "account_verification_success": "Account verification was successfully",
     "please_fill_all_fields": "Please fill in all fields",
     "lessons_for": "Lessons for",
-    "chose_course": "Please choose a course"
+    "chose_course": "Please choose a course",
+    "title_required": "Title is required",
+    "missing_columns": "Missing columns",
+    "extra_columns": "Extra columns",
+    "all_data_is_present": "No missing rows. All data is present"
   },
   "error": {
     "all_fields_required": "Please fill in all fields",
@@ -93,7 +100,9 @@
     "failed_to_fetch_labs_scores": "Failed to fetch labs scores",
     "fetching_users": "Error fetching users",
     "query_execution_failed": "Query execution failed",
-    "chose_course": "Please choose a course"
+    "chose_course": "Please choose a course",
+    "failed_to_delete": "Failed to delete",
+    "failed_to_execute_query": "Failed to execute query"
   },
   "success": {
     "password_changed": "Password changed successfully"
@@ -108,7 +117,8 @@
     "exercises_unsolved_by#_of_attempts": "Unsolved Exercises by # of attempts",
     "completion": "completion",
     "attempts": "attempts",
-    "there_is_no_data": "There is no data to display."
+    "there_is_no_data": "There is no data to display.",
+    "users_chart_title": "Count of Exercises Completed by Month"
   },
   "auth": {
     "reset_password": "Reset Password",
@@ -118,7 +128,13 @@
     "sign_in_loading": "Signing In...",
     "forgot_password": "Forgot Password?",
     "no_account": "Don't have an account?",
-    "already_have_account": "Already have an account?"
+    "already_have_account": "Already have an account?",
+    "send_reset_link": "Send Reset Link",
+    "send_reset_link_loading": "Sending Reset Link...",
+    "reset_link_sent": "Password reset link sent to your email!",
+    "sign_in_success": "User successfully logged in!",
+    "check_email_verify": "Check your email to verify your account.",
+    "failed_register": "Failed to register."
   },
   "sign_in": {
     "continue": "Sign in to continue your SQL journey"
@@ -138,7 +154,9 @@
     "profile": "Profile",
     "manage": "Manage your account information",
     "edit_profile": "Edit Profile",
-    "member_since": "Member since"
+    "member_since": "Member since",
+    "profile_update_success": "Profile updated successfully",
+    "profile_image_update_success": "Profile image updated successfully"
   },
   "report_history": {
     "title": "Report History",
@@ -160,7 +178,8 @@
   "practice": {
     "title": "SQL Practice",
     "description": "Practice your SQL skills with interactive exercises and challenges.",
-    "sql_placeholder": "Type your SQL query here..."
+    "sql_placeholder": "Type your SQL query here...",
+    "query_required": "Please enter a query"
   },
   "laboratories": {
     "title": "SQL Exercises",
@@ -171,12 +190,17 @@
     "success_rate": "Success Rate",
     "attempts": "Attempts",
     "solve_exercise": "Solve Exercise",
-    "view_history": "View History"
+    "view_history": "View History",
+    "response_submitted_success": "Response submitted successfully!",
+    "query_executed_success": "Query executed successfully!",
+    "response_empty": "Response cannot be empty.",
+    "query_empty": "Query cannot be empty."
   },
   "courses": {
     "title": "SQL Courses",
     "description": "Browse the SQL courses.",
-    "subtitle": "Courses"
+    "subtitle": "Courses",
+    "course": "Course"
   },
   "admin": {
     "admin_panel": "Admin Panel",
@@ -196,7 +220,14 @@
     "user_promoted_success": "User promoted to admin successfully",
     "user_promotion_failed": "Failed to promote user",
     "user_demoted_success": "User demoted successfully",
-    "user_demotion_failed": "Failed to demote user"
+    "user_demotion_failed": "Failed to demote user",
+    "user_deleted_success": "User deleted successfully",
+    "promote_user": "Promote User",
+    "promote_description": "This action is gonna give admin rights to this user. Are you sure?",
+    "promote_loading": "Promoting...",
+    "demote_user": "Demote User",
+    "demote_description": "This action is gonna revoke the admin rights from this user. Are you sure?",
+    "demote_loading": "Demoting..."
   },
   "exercise_management": {
     "title": "Exercise Management",
@@ -210,8 +241,11 @@
     "edit_lab": "Edit Laboratory",
     "save_exercise": "Save Exercise",
     "create_exercise": "Create Exercise",
+    "generate_exercise": "Generate Exercise",
     "create_new_exercise": "Create New Exercise",
+    "create_new_exercise_ai": "Create New Exercise with AI",
     "write_exercise_question": "Write the exercise question here...",
+    "write_ai_description": "Write a detailed description for AI to generate the exercise...",
     "search_exercises_placeholder": "Search exercises by question or ID...",
     "load_failed": "Failed to load exercises",
     "laboratory_delete_success": "Laboratory deleted successfully",
@@ -219,6 +253,7 @@
     "exercise_delete_success": "Exercise deleted successfully",
     "exercise_delete_failure": "Failed to delete exercise",
     "add_laboratory": "Add Laboratory",
+    "add_exercise": "Add Exercise",
     "no_labs_yet": "No laboratories yet",
     "create_first_lab": "Create your first laboratory",
     "add_first_exercise": "Add your first exercise",
@@ -251,7 +286,44 @@
     "report_deleted_success": "Report deleted successfully",
     "report_deleted_failure": "Failed to delete report",
     "report": "Report",
-    "provide_solution_for_report": "Please provide a solution when marking the report as resolved."
+    "provide_solution_for_report": "Please provide a solution when marking the report as resolved.",
+    "report_submitted_success": "Report submitted successfully"
+  },
+  "home": {
+    "title_first": "Learn SQL Through",
+    "title_second": "Hands-On Practice",
+    "description": "Challenge yourself with interactive SQL exercises. From SELECT basics to complex queries, build real database skills with immediate and detailed feedback.",
+    "subtitle": "Everything you need to become proficient in SQL, organized and structured for maximum learning.",
+    "get_started": "Get Started",
+    "box_1_title": "Structured Learning",
+    "box_1_description": "Organized exercises, learn progressively and build confidence.",
+    "box_2_title": "Hands-On Practice",
+    "box_2_description": "Write real SQL queries and get immediate feedback. Learn by doing, not just watching.",
+    "box_3_title": "Track Progress",
+    "box_3_description": "Monitor your learning journey. See statistics as you complete exercises.",
+    "box_4_title": "Detailed feedback",
+    "box_4_description": "Every exercise comes with feedback to help you understand and improve.",
+    "third_title": "Master SQL through carefully designed laboratories and exercises.",
+    "box_5_title": "SQL Fundamentals",
+    "box_5_description": "Master the basics of SQL queries. Learn SELECT, WHERE, and basic filtering.",
+    "box_6_title": "Data Relationships",
+    "box_6_description": "Explore JOINs and understand how to work with multiple tables.",
+    "box_7_title": "Aggregate Functions",
+    "box_7_description": "Learn SUM, COUNT, AVG, and GROUP BY for data analysis.",
+    "box_8_title": "Advanced Queries",
+    "box_8_description": "Dive into subqueries, and complex aggregations.",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "how_it_works": "How It Works",
+    "step_1_title": "Sign Up",
+    "step_1_description": "Create your account and join the other students to learn SQL.",
+    "step_2_title": "Choose a Laboratory",
+    "step_2_description": "Browse the organized laboratories and select one to start learning.",
+    "step_3_title": "Practice Exercises",
+    "step_3_description": "Write SQL queries and get instant feedback on your solutions.",
+    "step_4_title": "Learn & Grow",
+    "step_4_description": "Review the solutions and progress through the challenges."
   },
   "backend": {
     "USER_DOES_NOT_EXIST": "User does not exist!",
@@ -270,6 +342,18 @@
     "REPORT_NOT_FOUND": "Report not found",
     "INVALID_OR_EXPIRED_TOKEN": "Invalid or Expired Token!",
     "VISUALIZATION_ERROR": "Error generating visualization",
-    "DDL_COMMANDS": "Query can't contain commands that modify the database"
+    "DDL_COMMANDS": "Query can't contain commands that modify the database",
+    "TCL_COMMANDS": "Query can't contain transactional control language commands",
+    "SUPER_ADMIN_ACCESS_REQUIRED": "Super Admin access required!",
+    "ADMIN_ACCESS_REQUIRED": "Admin access required!",
+    "ERR_DML_NO_TABLE": "Could not extract table from dml query.",
+    "COLUMNS_DOES_NOT_MATCH": "Columns doesn't match",
+    "COLUMNS_ORDER_WRONG": "Columns are matching, but the order is wrong.",
+    "RESULTS_ORDER_WRONG": "Results are correct, but the order is wrong.",
+    "RESULTS_WRONG": "Results are incorrect.",
+    "ERR_DML_WRONG_TABLE": "You had to modify '{{expected}}', but you tried with '{{actual}}'.",
+    "ERR_TEACHER_SOL": "Error in the teacher solution: '{{err}}'",
+    "SQL_ERROR": "SQL Error: '{{err}}'",
+    "SERVER_ERROR": "Server error: '{{err}}'"
   }
 }

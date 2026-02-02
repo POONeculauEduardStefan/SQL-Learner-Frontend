@@ -11,7 +11,7 @@ const UnsolvedExercisesStatsBarChartModel = () => {
     useEffect(() => {
         const fetchAllExerciseStats = async () => {
             try {
-                const response = await api.get("http://localhost:8000/api/v1/exercise_history/stats/exercises/unsolved", {
+                const response = await api.get("http://127.0.0.1:8000/api/v1/exercise_history/stats/exercises/unsolved", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }

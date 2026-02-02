@@ -36,7 +36,7 @@ export default function EditLaboratoryModal({isOpen, onClose, onSuccess, laborat
         try {
             const token = localStorage.getItem("token");
             const response = await api.put(
-                `http://localhost:8000/api/v1/laboratory/${laboratory.id}`,
+                `http://127.0.0.1:8000/api/v1/laboratory/${laboratory.id}`,
                 formData,
                 {headers: {Authorization: `Bearer ${token}`}}
             );

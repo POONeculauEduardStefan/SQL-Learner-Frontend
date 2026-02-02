@@ -17,7 +17,7 @@ const ReportExerciseModal = ({isOpen, onClose, exercise, laboratory}) => {
     const handleAddReport = async (e) => {
         e.preventDefault();
         if (!formData.request || !formData.title) {
-            toast.error("Please fill in all fields.");
+            toast.error(t('common.please_fill_all_fields'));
             return;
         }
         try {
@@ -33,7 +33,7 @@ const ReportExerciseModal = ({isOpen, onClose, exercise, laboratory}) => {
                 }
             })
             if (response.status === 201) {
-                toast.success("Report submitted successfully!");
+                toast.success(t('reports_management.report_submitted_success'));
                 setFormData({request: '', title: ''});
                 onClose();
             }

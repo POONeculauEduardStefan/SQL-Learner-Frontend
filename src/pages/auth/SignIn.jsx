@@ -20,7 +20,7 @@ const SignIn = () => {
         setLoading(true);
 
         if (!email || !password) {
-            toast.error("Please fill in all fields");
+            toast.error(t('common.please_fill_all_fields'));
             return;
         }
         try {
@@ -30,7 +30,7 @@ const SignIn = () => {
             })
             if (response.status === 200) {
                 localStorage.setItem("token", response.data.data.token);
-                toast.success("User successfully logged in!");
+                toast.success(t('auth.sign_in_success'));
                 navigate("/dashboard/home")
             }
         } catch (error) {
@@ -105,7 +105,7 @@ const SignIn = () => {
                     disabled={loading}
                     className="w-full mt-8 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-3.5 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-blue-500/25 cursor-pointer"
                 >
-                    {loading ? 'Signing In...' : 'Sign In'}
+                    {loading ? t('auth.sign_in_loading') : t('auth.sign_in')}
                 </button>
             </form>
 
@@ -121,7 +121,7 @@ const SignIn = () => {
                     {t('auth.no_account')}{' '}
                     <Link to="/auth/sign-up"
                           className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-                        Sign Up
+                        {t('auth.sign_up')}
                     </Link>
                 </p>
             </div>

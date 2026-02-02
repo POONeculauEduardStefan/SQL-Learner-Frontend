@@ -15,13 +15,13 @@ export default function AdminDashboard() {
 
     const fetchAllUsers = async () => {
         try {
-            const response = await api.get("http://localhost:8000/api/v1/admin/users", {
+            const response = await api.get("http://127.0.0.1:8000/api/v1/admin/users", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             });
             if (response.status === 200) {
-                const usersArray = getSuccessData(response);
+                const usersArray = getSuccessData(response).filter(user => user.role == 0);
                 setUsers(usersArray);
             }
         } catch (error) {

@@ -17,7 +17,7 @@ export default function DeleteEntityModal({isOpen, onClose, deleteEntity, entity
             onClose();
         } catch (err) {
             const message = getErrorResponseMessage(err);
-            toast.error(message || `Failed to delete ${entityName}.`);
+            toast.error(message || `${t('error.failed_to_delete')} ${entityName}.`);
         } finally {
             setLoading(false);
         }

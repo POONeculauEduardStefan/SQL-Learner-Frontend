@@ -1,6 +1,8 @@
 import React from 'react';
+import {useTranslation} from "react-i18next";
 
 const ColumnsDetails = ({selectedHistoryItem}) => {
+    const {t} = useTranslation();
     return (
         <>
             {selectedHistoryItem && selectedHistoryItem.result_details.type === 'column' && (
@@ -13,8 +15,7 @@ const ColumnsDetails = ({selectedHistoryItem}) => {
                                     <div>
                                         {selectedHistoryItem.result_details.missing_columns && selectedHistoryItem.result_details.missing_columns.length > 0 && (
                                             <div className="flex flex-col">
-                                                <p className="font-semibold text-red-600 mb-2">Missing
-                                                    Columns:</p>
+                                                <p className="font-semibold text-red-600 mb-2">{t('common.missing_columns')}:</p>
                                                 <div
                                                     className="flex flex-row overflow-x-auto gap-3"
                                                 >
@@ -30,8 +31,7 @@ const ColumnsDetails = ({selectedHistoryItem}) => {
                                     <div>
                                         {selectedHistoryItem.result_details.extra_columns && selectedHistoryItem.result_details.extra_columns.length > 0 &&
                                             <div className="flex flex-col">
-                                                <p className="font-semibold text-yellow-600 mb-2">Extra
-                                                    Columns:</p>
+                                                <p className="font-semibold text-yellow-600 mb-2">{t('common.extra_columns')}:</p>
                                                 <div
                                                     className="flex flex-row overflow-x-auto gap-3"
                                                 >

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Delete, Edit, Plus, Search, Trash2} from "lucide-react";
+import {Brain, Delete, Edit, Plus, Search, Trash2} from "lucide-react";
 import {useTranslation} from "react-i18next";
 
 const LaboratoryCardHeader = ({
@@ -7,6 +7,7 @@ const LaboratoryCardHeader = ({
                                   setIsEditLaboratoryOpen,
                                   setIsDeleteLaboratoryOpen,
                                   setShowExerciseModal,
+                                  setShowGenerateModal,
                                   searchQuery,
                                   setSearchQuery,
                                   clearSearch
@@ -32,11 +33,17 @@ const LaboratoryCardHeader = ({
                         <Trash2 className="w-5 h-5"/>
                     </button>
                     <button
+                        onClick={() => setShowGenerateModal(true)}
+                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-xl transition-colors shadow-lg shadow-blue-500/25 flex-shrink-0 cursor-pointer"
+                    >
+                        <Brain className="w-4 h-4"/>
+                    </button>
+                    <button
                         onClick={() => setShowExerciseModal(true)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-xl transition-colors shadow-lg shadow-blue-500/25 flex-shrink-0 cursor-pointer"
                     >
                         <Plus className="w-4 h-4"/>
-                        <span className="hidden sm:inline">Add Exercise</span>
+                        <span className="hidden sm:inline">{t('exercise_management.add_exercise')}</span>
                     </button>
                 </div>
             </div>

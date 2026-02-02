@@ -20,7 +20,7 @@ const SolveExerciseModal = ({isOpen, onClose, exercise, fetchExercisesByLabId, l
     const handleAddResponse = async (e) => {
         e.preventDefault();
         if (formData.response.trim() === '') {
-            toast.error("Response cannot be empty.");
+            toast.error(t('laboratories.response_empty'));
             return;
         }
         try {
@@ -36,14 +36,14 @@ const SolveExerciseModal = ({isOpen, onClose, exercise, fetchExercisesByLabId, l
                 }
             })
             if (response.status === 201) {
-                toast.success("Response submitted successfully!");
+                toast.success(t('laboratories.response_submitted_success'));
                 setFormData({response: ''});
                 await fetchHistory(exercise.id);
                 await fetchExercisesByLabId(laboratory.id);
             }
         } catch (error) {
             const message = getErrorResponseMessage(error);
-            toast.error(message);
+            toast.error(t(`backend.${message}`));
         } finally {
             setLoading(false);
         }
@@ -58,7 +58,6 @@ const SolveExerciseModal = ({isOpen, onClose, exercise, fetchExercisesByLabId, l
             })
             if (response.status === 200) {
                 const historyData = getSuccessData(response).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                console.log(historyData);
                 setHistory(historyData);
             }
         } catch (error) {
@@ -81,18 +80,19 @@ const SolveExerciseModal = ({isOpen, onClose, exercise, fetchExercisesByLabId, l
         if (!loading) {
             setColumns([]);
             setRows([]);
+            setFormData({response: ''});
         }
     }
 
     const handleRunQuery = async (e) => {
         e.preventDefault()
         if (formData.response.trim() === '') {
-            toast.error("Query cannot be empty.");
+            toast.error(t('laboratories.query_empty'));
             return;
         }
         setLoading(true);
         try {
-            const response = await api.post("http://localhost:8000/api/v1/runner", {
+            const response = await api.post("http://127.0.0.1:8000/api/v1/runner", {
                 query: formData.response
             }, {
                 headers: {
@@ -103,12 +103,11 @@ const SolveExerciseModal = ({isOpen, onClose, exercise, fetchExercisesByLabId, l
                 const data = getSuccessData(response);
                 setColumns(data.columns);
                 setRows(data.rows);
-                toast.success('Query executed successfully');
-                console.log('Query Result:', data);
+                toast.success(t('laboratories.query_executed_success'));
             }
         } catch (error) {
             const message = getErrorResponseMessage(error);
-            toast.error(message || 'Failed to execute query');
+            toast.error(t(`backend.${message}`));
         } finally {
             setLoading(false);
         }

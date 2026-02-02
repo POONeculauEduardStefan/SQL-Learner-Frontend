@@ -19,13 +19,13 @@ export default function AddLaboratoryModal({isOpen, onClose, onSuccess}) {
         setLoading(true);
 
         if (formData.title.trim() === '') {
-            toast.error("Title is required");
+            toast.error(t('common.title_required'));
             setLoading(false);
             return;
         }
         try {
             const token = localStorage.getItem("token");
-            const response = await api.post("http://localhost:8000/api/v1/laboratory", formData, {
+            const response = await api.post("http://127.0.0.1:8000/api/v1/laboratory", formData, {
                 headers: {Authorization: `Bearer ${token}`},
             })
             if (response.status === 201) {

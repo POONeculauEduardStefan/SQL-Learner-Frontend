@@ -26,38 +26,39 @@ export default function SignUp() {
         setLoading(true);
 
         if (!email || !lastName || !firstName || !password || !confirmPassword) {
-            toast.error("Please fill in all fields");
+            toast.error(t('common.please_fill_all_fields'));
             setLoading(false);
             return;
         }
         if (password !== confirmPassword) {
-            toast.error("Passwords don't match");
+            toast.error(t('error.password_match'));
             setLoading(false);
             return;
         }
 
         if (!validatePassword(password)) {
-            toast.error("Password must be at least 8 characters long, contain 1 uppercase letter, 1 number, and 1 special character");
+            toast.error(t('error.password_requirements'));
             setLoading(false);
             return;
         }
 
         try {
+            const language = localStorage.getItem("i18nextLng") || "en";
             const response = await api.post("/api/v1/auth/register", {
                 email,
                 first_name: firstName,
                 last_name: lastName,
-                password
+                password,
+                language,
             })
             if (response.status === 201) {
-                toast.success("Check your email to verify your account");
+                toast.success(t('auth.check_email_verify'));
                 navigate("/login");
             }
         } catch (err) {
-            console.log(err);
             const message = getErrorResponseMessage(err)
             const translatedMessage = t(`backend.${message}`);
-            toast.error(translatedMessage || 'Failed to register');
+            toast.error(translatedMessage || t('auth.failed_register'));
         } finally {
             setLoading(false);
         }

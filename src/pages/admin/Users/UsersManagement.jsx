@@ -25,7 +25,6 @@ const USER_PER_PAGE = 5;
 
 export default function UsersManagement() {
     const currentUser = useAdmin();
-    console.log(currentUser);
     const {t} = useTranslation();
     const [searchQuery, setSearchQuery] = useState('');
     const [usersData, setUsersData] = useState([]);
@@ -111,7 +110,7 @@ export default function UsersManagement() {
             });
             if (response.status === 204) {
                 setUsersData(usersData.filter(user => user.id !== userId));
-                toast.success("User deleted successfully");
+                toast.success(t('users_management.user_deleted_success'));
                 if (usersData.length === 1 && currentPage > 1) {
                     await getAllUsers(currentPage - 1, searchQuery);
                 } else {
@@ -246,7 +245,7 @@ export default function UsersManagement() {
                                         </span>
                                     </td>
                                     {(currentUser.userId !== user.id) && <td className="flex flex-row px-6 py-4">
-                                        <button
+                                        {(user.role === 0 || currentUser.role === 2)  && <button
                                             className="p-2 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
                                             onClick={() => {
                                                 setSelectedUserId(user.id)
@@ -254,9 +253,9 @@ export default function UsersManagement() {
                                             }}
                                         >
                                             <Trash className="w-5 h-5 text-red-600"/>
-                                        </button>
+                                        </button>}
                                         {
-                                            user.role === 0 && (
+                                            (user.role === 0 && currentUser.role === 2)  && (
                                                 <button
                                                     className="p-2 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
                                                     onClick={() => {
@@ -269,7 +268,7 @@ export default function UsersManagement() {
                                             )
                                         }
                                         {
-                                            user.role === 1 && (
+                                            user.role === 1 && currentUser.role === 2 && (
                                                 <button
                                                     className="p-2 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
                                                     onClick={() => {

@@ -19,7 +19,6 @@ const ProfileExerciseHistory = () => {
                 });
                 if (response.status === 200) {
                     const data = getSuccessData(response).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                    console.log(data);
                     setHistory(data);
                 }
             } catch (error) {

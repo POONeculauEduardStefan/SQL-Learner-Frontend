@@ -100,7 +100,7 @@ export default function Profile() {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 200) {
-                toast.success('Profile updated successfully!');
+                toast.success(t('profile.profile_update_success'));
                 const data = getSuccessData(response);
                 setUser(data);
             }
@@ -127,7 +127,7 @@ export default function Profile() {
                 },
             })
             if (response.status === 200) {
-                toast.success('Profile image updated successfully!');
+                toast.success('profile.profile_image_update_success');
                 const data = getSuccessData(response);
                 setPreviewUrl(null);
                 setIsEditing(false);

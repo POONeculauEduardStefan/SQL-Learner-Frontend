@@ -12,7 +12,7 @@ const Scoreboard = () => {
     const [isExercisesSelected, setIsExercisesSelected] = useState(true);
     const handleFetchScoresExercises = async () => {
         try {
-            const response = await api.get("http://localhost:8000/api/v1/exercise_history/score/exercises",
+            const response = await api.get("http://127.0.0.1:8000/api/v1/exercise_history/score/exercises",
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -30,7 +30,7 @@ const Scoreboard = () => {
 
     const handleFetchScoresLaboratory = async () => {
         try {
-            const response = await api.get("http://localhost:8000/api/v1/exercise_history/score/laboratories",
+            const response = await api.get("http://127.0.0.1:8000/api/v1/exercise_history/score/laboratories",
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`

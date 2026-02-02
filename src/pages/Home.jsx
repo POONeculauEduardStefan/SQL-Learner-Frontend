@@ -2,9 +2,11 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {ArrowRight, Award, BookOpen, Code, Target} from 'lucide-react';
 import {useUser} from "../context/LoginRequired.jsx";
+import {useTranslation} from "react-i18next";
 
 
 export default function Home() {
+    const {t} = useTranslation();
     const user = useUser();
 
     return (
@@ -18,11 +20,11 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="text-center mb-12 lg:mb-16">
                         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
-                            Learn SQL Through <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">Hands-On Practice</span>
+                            {t('home.title_first')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">{t('home.title_second')}</span>
                         </h1>
 
                         <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-                            Challenge yourself with interactive SQL exercises. From SELECT basics to complex queries, build real database skills with immediate and detailed feedback.
+                            {t('home.description')}
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -30,20 +32,20 @@ export default function Home() {
                                 to="/dashboard/laboratories"
                                 className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30"
                             >
-                                Get Started
+                                {t('home.get_started')}
                                 <ArrowRight className="w-5 h-5"/>
                             </Link>}
                             {(!user || !user.userId) && <Link
                                 to="/auth/sign-up"
                                 className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30"
                             >
-                                Sign Up
+                                {t('auth.sign_up')}
                             </Link>}
                             {(!user || !user.userId) && <Link
                                 to="/auth/sign-in"
                                 className="inline-flex items-center justify-center gap-2 bg-blue-200 hover:bg-blue-300 text-blue-600 font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30"
                             >
-                                Sign In
+                                {t('auth.sign_in')}
                             </Link>}
                         </div>
                     </div>
@@ -53,30 +55,30 @@ export default function Home() {
             <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-blue-400">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-2xl font-bold text-white mb-4">Everything you need to become proficient in SQL, organized and structured for maximum learning.</h2>
+                        <h2 className="text-2xl font-bold text-white mb-4">{t('home.subtitle')}</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             {
                                 icon: BookOpen,
-                                title: 'Structured Learning',
-                                description: 'Organized exercises, learn progressively and build confidence.',
+                                title: t('home.box_1_title'),
+                                description: t('home.box_1_description'),
                             },
                             {
                                 icon: Target,
-                                title: 'Hands-On Practice',
-                                description: 'Write real SQL queries and get immediate feedback. Learn by doing, not just watching.',
+                                title: t('home.box_2_title'),
+                                description: t('home.box_2_description'),
                             },
                             {
                                 icon: Award,
-                                title: 'Track Progress',
-                                description: 'Monitor your learning journey. See statistics as you complete exercises.',
+                                title: t('home.box_3_title'),
+                                description: t('home.box_3_description'),
                             },
                             {
                                 icon: Code,
-                                title: 'Detailed feedback',
-                                description: 'Every exercise comes with feedback to help you understand and improve.',
+                                title: t('home.box_4_title'),
+                                description: t('home.box_4_description'),
                             },
                         ].map((feature, index) => {
                             const Icon = feature.icon;
@@ -100,33 +102,33 @@ export default function Home() {
             <section className="py-20 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Master SQL through carefully designed laboratories and exercises.</h2>
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">{t('home.third_title')}</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             {
-                                title: 'SQL Fundamentals',
-                                description: 'Master the basics of SQL queries. Learn SELECT, WHERE, and basic filtering.',
-                                level: 'Beginner',
+                                title: t('home.box_5_title'),
+                                description: t('home.box_5_description'),
+                                level: t('home.beginner'),
                                 color: 'from-green-500 to-emerald-500',
                             },
                             {
-                                title: 'Data Relationships',
-                                description: 'Explore JOINs and understand how to work with multiple tables.',
-                                level: 'Intermediate',
+                                title: t('home.box_6_title'),
+                                description: t('home.box_6_description'),
+                                level: t('home.intermediate'),
                                 color: 'from-amber-500 to-orange-500',
                             },
                             {
-                                title: 'Aggregate Functions',
-                                description: 'Learn SUM, COUNT, AVG, and GROUP BY for data analysis.',
-                                level: 'Intermediate',
+                                title: t('home.box_7_title'),
+                                description: t('home.box_7_description'),
+                                level: t('home.intermediate'),
                                 color: 'from-amber-500 to-orange-500',
                             },
                             {
-                                title: 'Advanced Queries',
-                                description: 'Dive into subqueries, and complex aggregations.',
-                                level: 'Advanced',
+                                title: t('home.box_8_title'),
+                                description: t('home.box_8_description'),
+                                level: t('home.advanced'),
                                 color: 'from-red-500 to-pink-500',
                             },
                         ].map((course, index) => (
@@ -136,11 +138,11 @@ export default function Home() {
                             >
                                 <div className={`h-2 w-16 bg-gradient-to-r ${course.color} rounded-full mb-4`}></div>
                                 <h3 className="text-xl font-bold text-slate-900 mb-2">{course.title}</h3>
-                                <p className="text-slate-600 mb-4">{course.description}</p>
+                                <p className="text-slate-600 mb-4 h-20">{course.description}</p>
                                 <div className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                                    course.level === 'Beginner'
+                                    course.level === t('home.beginner')
                                         ? 'bg-green-100 text-green-700'
-                                        : course.level === 'Intermediate'
+                                        : course.level === t('home.intermediate')
                                             ? 'bg-amber-100 text-amber-700'
                                             : 'bg-red-100 text-red-700'
                                 }`}>
@@ -155,30 +157,30 @@ export default function Home() {
             <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-blue-400">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">How It Works</h2>
+                        <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">{t('home.how_it_works')}</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                         {[
                             {
                                 step: '01',
-                                title: 'Sign Up',
-                                description: 'Create your account and join the other students to learn SQL.',
+                                title: t('home.step_1_title'),
+                                description: t('home.step_1_description'),
                             },
                             {
                                 step: '02',
-                                title: 'Choose a Lab',
-                                description: 'Browse the organized laboratories and select one to start learning.',
+                                title: t('home.step_2_title'),
+                                description: t('home.step_2_description'),
                             },
                             {
                                 step: '03',
-                                title: 'Practice Exercises',
-                                description: 'Write SQL queries and get instant feedback on your solutions.',
+                                title: t('home.step_3_title'),
+                                description: t('home.step_3_description'),
                             },
                             {
                                 step: '04',
-                                title: 'Learn & Grow',
-                                description: 'Review the solutions and progress through the challenges.',
+                                title: t('home.step_4_title'),
+                                description: t('home.step_4_description'),
                             },
                         ].map((item, index) => (
                             <div key={index} className="relative">

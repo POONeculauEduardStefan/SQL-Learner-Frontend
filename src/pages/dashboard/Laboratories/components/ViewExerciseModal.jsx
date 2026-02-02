@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BadgeCheck, BookOpen, X} from "lucide-react";
+import {BookOpen, X} from "lucide-react";
 import api from "../../../../services/api.js";
 import {getErrorResponseMessage, getSuccessData} from "../../../../utils/responses.jsx";
 import {toast} from "react-toastify";
@@ -27,7 +27,6 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
             })
             if (response.status === 200) {
                 const historyData = getSuccessData(response).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                console.log(historyData);
                 setHistory(historyData);
             }
         } catch (error) {
@@ -60,6 +59,19 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
     };
 
     if (!isOpen) return null;
+
+    const getTranslatedValidationMessage = (backendMessage) => {
+        try {
+            const errorObj = JSON.parse(backendMessage);
+            if (errorObj && errorObj.key) {
+                return t(`backend.${errorObj.key}`, errorObj.params);
+            }
+        } catch (e) {
+            const translationKey = `backend.${backendMessage}`;
+            return t(translationKey);
+        }
+        return backendMessage;
+    }
 
     return (
         <div
@@ -104,20 +116,20 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
                                             <p
                                                 className={`mt-4 text-sm font-medium ${selectedHistoryItem.success ? 'text-green-600' : 'text-red-600'}`}
                                             >
-                                                {selectedHistoryItem.result_details.message}
+                                                {t(getTranslatedValidationMessage(selectedHistoryItem.result_details.message))}
                                             </p>
                                         }
                                         {selectedHistoryItem && selectedHistoryItem.success && (
                                             <div className="mt-4 border-t border-slate-200 py-4">
-                                                <p
+                                                {selectedHistoryItem.result_details.rows_count && <p
                                                     className="mt-4 text-sm font-medium text-slate-700"
                                                 >{t('common.rows_returned')}:
                                                     <span
                                                         className="font-semibold text-green-600 ml-1">
                                                         {selectedHistoryItem.result_details.rows_count}
                                                     </span>
-                                                </p>
-                                                <p
+                                                </p>}
+                                                {selectedHistoryItem.result_details.columns_count && <p
                                                     className="mt-2 text-sm font-medium text-slate-700"
                                                 >{t('common.columns_returned')}:
                                                     <span
@@ -125,7 +137,7 @@ const ViewExerciseModal = ({isOpen, onClose, exercise}) => {
                                                     >
                                                         {selectedHistoryItem.result_details.columns_count}
                                                     </span>
-                                                </p>
+                                                </p>}
                                                 {/*<div className=" pt-4 flex flex-col items-center">*/}
                                                 {/*    <p className="font-semibold text-green-600 mb-2">The query was*/}
                                                 {/*        successful!</p>*/}

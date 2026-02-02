@@ -3,6 +3,7 @@ import {Book, Database, Folder, LogOut, LucideShieldUser, Pen, Trophy, User} fro
 import {useUser} from "../context/LoginRequired"
 import {useIsAdmin} from "../utils/checkAdmin.jsx";
 import {useTranslation} from 'react-i18next';
+import ReactCountryFlag from "react-country-flag";
 
 export default function Navbar() {
     const {t, i18n} = useTranslation();
@@ -75,8 +76,26 @@ export default function Navbar() {
                                 value={i18n.language}
                                 onChange={(e) => i18n.changeLanguage(e.target.value)}
                             >
-                                <option value="ro">🇷🇴</option>
-                                <option value="en">🇬🇧</option>
+                                <option value="ro">
+                                    <ReactCountryFlag
+                                        className="emojiFlag"
+                                        countryCode="RO"
+                                        style={{
+                                            fontSize: '2em',
+                                            lineHeight: '2em',
+                                        }}
+                                        aria-label="Romania"/>
+                                </option>
+                                <option value="en">
+                                    <ReactCountryFlag
+                                        className="emojiFlag"
+                                        countryCode="GB"
+                                        style={{
+                                            fontSize: '2em',
+                                            lineHeight: '2em',
+                                        }}
+                                        aria-label="Great Britain"/>
+                                </option>
                             </select>
                         </div>
                     </div>

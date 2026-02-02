@@ -1,19 +1,6 @@
 import React from 'react';
 
 const RowsDetails = ({selectedHistoryItem}) => {
-    console.log(selectedHistoryItem)
-    const getTableColumns = (rows_samples) => {
-        const columns = []
-        rows_samples.forEach(row => {
-                Object.keys(row).forEach(key => {
-                    if (!columns.includes(key)) {
-                        columns.push(key)
-                    }
-                })
-            }
-        )
-        return columns
-    }
 
     return (
         <>

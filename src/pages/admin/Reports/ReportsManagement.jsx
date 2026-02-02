@@ -33,7 +33,7 @@ export default function ReportsManagement() {
     const loadReports = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await api.get('http://localhost:8000/api/v1/report', {
+            const response = await api.get('http://127.0.0.1:8000/api/v1/report', {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 200) {
@@ -56,7 +56,7 @@ export default function ReportsManagement() {
         }
         try {
             const token = localStorage.getItem('token');
-            const response = await api.put(`http://localhost:8000/api/v1/report`, {
+            const response = await api.put(`http://127.0.0.1:8000/api/v1/report`, {
                 report_id: selectedReport.id,
                 status: statusFormData.status,
                 solution: statusFormData.solution,
@@ -78,7 +78,7 @@ export default function ReportsManagement() {
 
     const handleDeleteReport = async (reportId) => {
         try {
-            const response = await api.delete(`http://localhost:8000/api/v1/report/${reportId}`, {
+            const response = await api.delete(`http://127.0.0.1:8000/api/v1/report/${reportId}`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
             });
             if (response.status === 204) {

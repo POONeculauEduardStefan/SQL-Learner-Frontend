@@ -61,7 +61,7 @@ const ExerciseCard = ({
                 onClose={() => setIsDeleteExerciseOpen(false)}
                 deleteEntity={handleDeleteExercise}
                 entityId={exercise.id}
-                entityName={"Exercise"}
+                entityName={t('common.exercise')}
             />
         </div>
     );

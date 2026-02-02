@@ -13,25 +13,27 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const handleSignIn = async (e) => {
+    const handleForgotPassword = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         if (!email) {
-            toast.error("Please fill in all fields");
+            toast.error(t('common.please_fill_all_fields'));
             return;
         }
         try {
+            const language = localStorage.getItem("i18nextLng") || "en";
             const response = await api.post("/api/v1/auth/forgot-password", {
                 email: email,
+                language: language,
             })
             if (response.status === 200) {
-                toast.success("Password reset link sent to your email!");
+                toast.success(t('auth.reset_link_sent'));
                 navigate("/")
             }
         } catch (error) {
             const message = getErrorResponseMessage(error);
-            toast.error(message);
+            toast.error(t(`backend.${message}`));
         } finally {
             setLoading(false);
         }
@@ -45,7 +47,7 @@ const ForgotPassword = () => {
                 <p className="text-slate-400">{t('forgot_password.continue')}</p>
             </div>
 
-            <form onSubmit={handleSignIn} className="space-y-5">
+            <form onSubmit={handleForgotPassword} className="space-y-5">
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
                         {t('common.email')}
@@ -70,7 +72,7 @@ const ForgotPassword = () => {
                     disabled={loading}
                     className="w-full mt-8 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-3.5 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-blue-500/25 cursor-pointer"
                 >
-                    {loading ? t('auth.sign_in_loading') : t('auth.sign_in')}
+                    {loading ? t('auth.send_reset_link_loading') : t('auth.send_reset_link')}
                 </button>
             </form>
 

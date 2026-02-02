@@ -12,6 +12,7 @@ import LaboratoriesList from "./components/LaboratoriesList.jsx";
 import EditLaboratoryModal from "./components/EditLaboratoryModal.jsx";
 import LaboratoryCardHeader from "./components/LaboratoryCardHeader.jsx";
 import {useTranslation} from "react-i18next";
+import GenerateExerciseModal from "./components/GenerateExerciseModal.jsx";
 
 export default function ExercisesManagement() {
     const {t} = useTranslation();
@@ -21,6 +22,7 @@ export default function ExercisesManagement() {
     const [loading, setLoading] = useState(true);
     const [showLabModal, setShowLabModal] = useState(false);
     const [showExerciseModal, setShowExerciseModal] = useState(false);
+    const [showGenerateModal, setShowGenerateModal] = useState(false);
     const [showEditExerciseModal, setShowEditExerciseModal] = useState(false);
     const [editingExercise, setEditingExercise] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
@@ -40,7 +42,7 @@ export default function ExercisesManagement() {
     const loadLaboratories = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await api.get('http://localhost:8000/api/v1/laboratory', {
+            const response = await api.get('http://127.0.0.1:8000/api/v1/laboratory', {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 200) {
@@ -58,7 +60,7 @@ export default function ExercisesManagement() {
 
     const loadExercises = async (labId) => {
         try {
-            const response = await api.get(`http://localhost:8000/api/v1/exercise/by-laboratory/${labId}`, {
+            const response = await api.get(`http://127.0.0.1:8000/api/v1/exercise/by-laboratory/${labId}`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
             });
             if (response.status === 200) {
@@ -74,7 +76,7 @@ export default function ExercisesManagement() {
     const handleDeleteLab = async (labId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await api.delete(`http://localhost:8000/api/v1/laboratory/${labId}`, {
+            const response = await api.delete(`http://127.0.0.1:8000/api/v1/laboratory/${labId}`, {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 204) {
@@ -93,7 +95,7 @@ export default function ExercisesManagement() {
     const handleDeleteExercise = async (exerciseId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await api.delete(`http://localhost:8000/api/v1/exercise/${exerciseId}`, {
+            const response = await api.delete(`http://127.0.0.1:8000/api/v1/exercise/${exerciseId}`, {
                 headers: {Authorization: `Bearer ${token}`},
             });
             if (response.status === 204) {
@@ -184,6 +186,7 @@ export default function ExercisesManagement() {
                                 setIsEditLaboratoryOpen={setIsEditLaboratoryOpen}
                                 setIsDeleteLaboratoryOpen={setIsDeleteLaboratoryOpen}
                                 setShowExerciseModal={setShowExerciseModal}
+                                setShowGenerateModal={setShowGenerateModal}
                                 searchQuery={searchQuery}
                                 setSearchQuery={setSearchQuery}
                                 clearSearch={clearSearch}
@@ -241,6 +244,14 @@ export default function ExercisesManagement() {
                 <AddExerciseModal
                     isOpen={showExerciseModal}
                     onClose={() => setShowExerciseModal(false)}
+                    onSuccess={() => selectedLabId && loadExercises(selectedLabId)}
+                    laboratoryId={selectedLabId}
+                />
+            )}
+            {selectedLabId && (
+                <GenerateExerciseModal
+                    isOpen={showGenerateModal}
+                    onClose={() => setShowGenerateModal(false)}
                     onSuccess={() => selectedLabId && loadExercises(selectedLabId)}
                     laboratoryId={selectedLabId}
                 />

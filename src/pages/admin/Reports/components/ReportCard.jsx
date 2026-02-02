@@ -29,11 +29,12 @@ const ReportCard = ({
                                                 <span
                                                     className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0 ${getStatusColor(report.status)}`}>
                                                   {getStatusIcon(report.status)}
-                                                    {report.status}
+                                                    {t(`common.${report.status}`)}
                                                 </span>
                             </div>
                         </div>
                         <p className="text-sm text-slate-600 mb-3">{t('common.exercise_id')}: {report.exercise_id}</p>
+                        <p className="text-sm text-slate-600 mb-3">{t('common.name')}: {report.exercise_name}</p>
                         <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
                                           <span className="inline-flex items-center gap-1.5">
                                             <User className="w-3.5 h-3.5"/>

@@ -6,23 +6,49 @@ import Course2 from "./Course2.jsx";
 import Course4 from "./Course4.jsx";
 import Course3 from "./Course3.jsx";
 import SchemaModal from "./SchemaModal.jsx";
+import Course5 from './Course5.jsx';
+import Course6 from './Course6.jsx';
+import Course7 from './Course7.jsx';
+import Course8 from './Course8.jsx';
+import Course9 from './Course9.jsx';
+import Course11 from './Course11.jsx';
+import Course12 from './Course12.jsx';
+import Course13 from './Course13.jsx';
+import Course14 from './Course14.jsx';
+import Instalare from './Instalare.jsx';
+import GhidSQLPlus from './GhidSQLPlus.jsx';
+import Course10 from './Course10.jsx';
 
-const courseList = Array.from({length: 14}).map((_, index) => ({
-    id: index + 1,
-    title: `Course ${index + 1}`,
-    filename: `Course${index + 1}`
-}));
-const COURSE_COMPONENTS = {
-    'Course1': Course1,
-    'Course2': Course2,
-    'Course3': Course3,
-    'Course4': Course4,
-};
+
 const Courses = () => {
     const {t} = useTranslation();
+    const courseList = Array.from({length: 16}).map((_, index) => ({
+        id: index + 1,
+        title: `${t('courses.course')} ${index + 1}`,
+        filename: `Course${index + 1}`
+    }));
+    const COURSE_COMPONENTS = {
+        'Course1': Course1,
+        'Course2': Course2,
+        'Course3': Course3,
+        'Course4': Course4,
+        'Course5': Course5,
+        'Course6': Course6,
+        'Course7': Course7,
+        'Course8': Course8,
+        'Course9': Course9,
+        'Course10': Course10,
+        'Course11': Course11,
+        'Course12': Course12,
+        'Course13': Course13,
+        'Course14': Course14,
+        'Course15': Instalare,
+        'Course16': GhidSQLPlus
+    };
+
     const [selectedCourse, setSelectedCourse] = useState({
         id: 1,
-        title: 'Course 1',
+        title: `${t('courses.course')} 1`,
         filename: 'Course1'
     });
     const [isSchemaModalOpen, setIsSchemaModalOpen] = useState(false);

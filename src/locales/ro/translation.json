@@ -33,6 +33,7 @@
     "queries": "Interogări",
     "report": "Raport",
     "report_details": "Detalii Raport",
+    "report_request": "Solicitare Raport",
     "no_results_display": "Nu există rezultate de afișat",
     "history": "Istoric",
     "answer": "Răspuns",
@@ -55,12 +56,14 @@
     "create_loading": "Se creează...",
     "view_edit": "Vezi/Editează",
     "question_prompt": "Întrebare/Prompt",
+    "ai_description": "Descriere pentru AI",
     "sql_response": "Răspuns SQL",
     "exercise_id": "ID Exercițiu",
     "exercise_name": "Numele Exercițiului",
     "open": "Deschis",
     "in_progress": "În Progres",
     "resolved": "Rezolvat",
+    "all": "Toate",
     "update": "Actualizează",
     "resolution": "Rezoluție",
     "resolution_notes": "Note de Rezoluție",
@@ -80,7 +83,11 @@
     "account_verification_success": "Cont verificat cu succes.",
     "please_fill_all_fields": "Te rugăm să completezi toate câmpurile.",
     "lessons_for": "Lecții pentru",
-    "chose_course": "Alege un curs pentru a începe"
+    "chose_course": "Alege un curs pentru a începe",
+    "title_required": "Titlul este obligatoriu",
+    "missing_columns": "Coloane lipsă",
+    "extra_columns": "Coloane extra",
+    "all_data_is_present": "Toate datele sunt prezente"
   },
   "error": {
     "all_fields_required": "Te rugăm să completezi toate câmpurile",
@@ -92,7 +99,9 @@
     "failed_to_fetch_scores": "Preluarea scorurilor a eșuat",
     "failed_to_fetch_labs_scores": "Preluarea scorurilor laboratoarelor a eșuat",
     "fetching_users": "Preluarea utilizatorilor a eșuat",
-    "query_execution_failed": "Executarea interogării a eșuat"
+    "query_execution_failed": "Executarea interogării a eșuat",
+    "failed_to_delete": "Nu s-a putut șterge",
+    "failed_to_execute_query": "Nu s-a putut executa interogarea"
   },
   "success": {
     "password_changed": "Parola a fost schimbată cu succes"
@@ -112,7 +121,8 @@
     "exercises_unsolved_by#_of_attempts": "Exerciții Nerezolvate după # de încercări",
     "completion": "completare",
     "attempts": "încercări",
-    "there_is_no_data": "Nu există date de afișat."
+    "there_is_no_data": "Nu există date de afișat.",
+    "users_chart_title": "Numărul total de exerciții completate pe lună"
   },
   "auth": {
     "reset_password": "Resetează Parola",
@@ -122,7 +132,13 @@
     "sign_in_loading": "Signing In...",
     "forgot_password": "Ai uitat parola?",
     "no_account": "Nu ai un cont?",
-    "already_have_account": "Ai deja un cont?"
+    "already_have_account": "Ai deja un cont?",
+    "send_reset_link": "Trimite Link de Resetare",
+    "send_reset_link_loading": "Se trimite linkul de resetare...",
+    "reset_link_sent": "Linkul de resetare a fost trimis la adresa ta de email!",
+    "sign_in_success": "Autentificare reușită!",
+    "check_email_verify": "Te rugăm să verifici emailul pentru a-ți activa contul.",
+    "failed_register": "Înregistrarea a eșuat."
   },
   "sign_in": {
     "continue": "Conectează-te pentru a-ți continua călătoria SQL"
@@ -142,7 +158,9 @@
     "profile": "Profil",
     "manage": "Gestionează informațiile contului tău",
     "edit_profile": "Editează Profilul",
-    "member_since": "Membru din"
+    "member_since": "Membru din",
+    "profile_update_success": "Profil actualizat cu succes",
+    "profile_image_update_success": "Imaginea de profil actualizată cu succes"
   },
   "report_history": {
     "title": "Istoricul Raportelor",
@@ -164,7 +182,8 @@
   "practice": {
     "title": "Exersează SQL",
     "description": "Îmbunătățește-ți abilitățile SQL prin exerciții practice și interactive.",
-    "sql_placeholder": "Scrieți interogarea SQL aici..."
+    "sql_placeholder": "Scrieți interogarea SQL aici...",
+    "query_required": "Interogarea SQL este obligatorie."
   },
   "laboratories": {
     "title": "Exerciții SQL",
@@ -175,12 +194,17 @@
     "success_rate": "Rată de Succes",
     "attempts": "Încercări",
     "solve_exercise": "Rezolvă Exercițiul",
-    "view_history": "Vezi Istoricul"
+    "view_history": "Vezi Istoricul",
+    "response_submitted": "Răspuns trimis cu succes!",
+    "query_executed_success": "Interogarea executată cu succes!",
+    "response_empty": "Răspunsul nu poate fi gol.",
+    "query_empty": "Interogarea nu poate fi goală."
   },
   "courses": {
     "title": "Cursuri SQL",
     "description": "Navighează prin cursurile noastre SQL.",
-    "subtitle": "Cursuri"
+    "subtitle": "Cursuri",
+    "course": "Curs"
   },
   "admin": {
     "admin_panel": "Panou de Administrare",
@@ -200,7 +224,14 @@
     "user_promoted_success": "Utilizator promovat la administrator cu succes",
     "user_promotion_failed": "Promovarea utilizatorului a eșuat",
     "user_demoted_success": "Utilizator retrogradat cu succes",
-    "user_demotion_failed": "Retrogradarea utilizatorului a eșuat"
+    "user_demotion_failed": "Retrogradarea utilizatorului a eșuat",
+    "user_deleted_success": "Utilizator șters cu succes!",
+    "promote_user": "Promovează Utilizator",
+    "promote_description": "Această acțiune va acorda drepturi de administrator acestui utilizator. Ești sigur?",
+    "promote_loading": "Se promovează utilizatorul...",
+    "demote_user": "Retrogradează Utilizator",
+    "demote_description": "Această acțiune va elimina drepturile de administrator ale acestui utilizator. Ești sigur?",
+    "demote_loading": "Se retrogradează..."
   },
   "exercise_management": {
     "title": "Gestionare Exerciții",
@@ -214,8 +245,11 @@
     "edit_lab": "Editează Laborator",
     "save_exercise": "Salvează Exercițiul",
     "create_exercise": "Creează Exercițiu",
+    "generate_exercise": "Generează Exercițiu",
     "create_new_exercise": "Creează Exercițiu Nou",
+    "create_new_exercise_ai": "Creează Exercițiu Nou cu AI",
     "write_exercise_question": "Scrie întrebarea exercițiului aici...",
+    "write_ai_description": "Scrie descrierea pentru AI aici...",
     "search_exercises_placeholder": "Caută exerciții după întrebare sau ID...",
     "load_failed": "Încărcarea exercițiilor a eșuat",
     "laboratory_delete_success": "Laborator șters cu succes",
@@ -223,6 +257,7 @@
     "exercise_delete_success": "Exercițiu șters cu succes",
     "exercise_delete_failure": "Ștergerea exercițiului a eșuat",
     "add_laboratory": "Adaugă Laborator",
+    "add_exercise": "Adaugă Exercițiu",
     "no_labs_yet": "Nu există laboratoare încă",
     "create_first_lab": "Creează-ți primul laborator",
     "add_first_exercise": "Adaugă-ți primul exercițiu",
@@ -255,7 +290,44 @@
     "report_deleted_success": "Raport șters cu succes",
     "report_deleted_failure": "Ștergerea raportului a eșuat",
     "report": "Raport",
-    "provide_solution_for_report": "Te rugăm să oferi o soluție când marchezi raportul ca rezolvat."
+    "provide_solution_for_report": "Te rugăm să oferi o soluție când marchezi raportul ca rezolvat.",
+    "report_submitted_success": "Raport trimis cu succes"
+  },
+  "home": {
+    "title_first": "Învață SQL prin",
+    "title_second": "exerciții practice",
+    "description": "Provoacă-te cu exerciții SQL interactive. De la noțiunile de bază despre SELECT la interogări complexe, dezvoltă-ți abilități reale de utilizare a bazelor de date cu feedback imediat și detaliat.",
+    "subtitle": "Tot ce ai nevoie pentru a stăpâni SQL, organizat și structurat pentru învățare maximă.",
+    "get_started": "Începe Acum",
+    "box_1_title": "Învățare Structurată",
+    "box_1_description": "Exerciții organizate, învățare progresivă și dezvoltarea încrederii.",
+    "box_2_title": "Exerciții Practice",
+    "box_2_description": "Scrieți interogări SQL reale și primiți feedback imediat. Învățați practicând, nu doar observând.",
+    "box_3_title": "Urmărirea Progresului",
+    "box_3_description": "Monitorizează-ți parcursul de învățare. Vezi statistici pe măsură ce finalizezi exerciții.",
+    "box_4_title": "Feedback Detaliat",
+    "box_4_description": "Fiecare exercițiu vine cu feedback care te ajută să înțelegi și să te îmbunătățești.",
+    "third_title": "Stăpânește SQL prin laboratoare și exerciții atent concepute.",
+    "box_5_title": "Fundamentele SQL",
+    "box_5_description": "Stăpânește elementele de bază ale interogărilor SQL. Învață SELECT, WHERE și filtrarea de bază.",
+    "box_6_title": "Relații de date",
+    "box_6_description": "Explorează JOIN-urile și înțelege cum să lucrezi cu mai multe tabele.",
+    "box_7_title": "Agregări și Grupări",
+    "box_7_description": "Învățați SUM, COUNT, AVG și GROUP BY pentru analiza datelor.",
+    "box_8_title": "Interogări Avansate",
+    "box_8_description": "Explorați subinterogările și agregările complexe.",
+    "beginner": "Începător",
+    "intermediate": "Intermediar",
+    "advanced": "Avansat",
+    "how_it_works": "Cum Funcționează",
+    "step_1_title": "Creează un Cont",
+    "step_1_description": "Creează-ți contul și alătură-te celorlalți studenți pentru a învăța SQL.",
+    "step_2_title": "Alege un Laborator",
+    "step_2_description": "Răsfoiți laboratoarele organizate și selectați unul pentru a începe învățarea.",
+    "step_3_title": "Rezolvă Exerciții",
+    "step_3_description": "Scrieți interogări SQL și primiți feedback instantaneu despre soluțiile dvs.",
+    "step_4_title": "Progresează și Revizuiește",
+    "step_4_description": "Examinați soluțiile și depășiți provocările."
   },
   "backend": {
     "USER_DOES_NOT_EXIST": "Utilizatorul nu există!",
@@ -274,6 +346,18 @@
     "REPORT_NOT_FOUND": "Raportul nu a fost găsit",
     "INVALID_OR_EXPIRED_TOKEN": "Token invalid sau expirat.",
     "VISUALIZATION_ERROR": "Eroare de vizualizare a datelor",
-    "DDL_COMMANDS": "Comenzile DDL nu sunt permise în modul de practică."
+    "DDL_COMMANDS": "Comenzile DDL nu sunt permise.",
+    "TCL_COMMANDS": "Comenzile TCL nu sunt permise.",
+    "SUPER_ADMIN_ACCESS_REQUIRED": "Acces de super administrator necesar pentru această acțiune.",
+    "ADMIN_ACCESS_REQUIRED": "Acces de administrator necesar pentru această acțiune.",
+    "ERR_DML_NO_TABLE": "Nu am putut extrage numele tabelului din interogare.",
+    "COLUMNS_DOES_NOT_MATCH": "Coloanele nu se potrivesc cu așteptările.",
+    "COLUMNS_ORDER_WRONG": "Coloanele se potrivesc, dar ordinea este greșită.",
+    "RESULTS_ORDER_WRONG": "Rezultatele sunt corecte, dar ordinea lor este greșită.",
+    "RESULTS_WRONG": "Rezultatele nu sunt corecte.",
+    "ERR_DML_WRONG_TABLE": "Trebuia să modifici tabela '{{expected}}', dar ai modificat tabela '{{actual}}'.",
+    "ERR_TEACHER_SOL": "Eroare în soluția profesorului: '{{err}}'",
+    "SQL_ERROR": "Eroare SQL: '{{err}}'",
+    "SERVER_ERROR": "Eroare server: '{{err}}'"
   }
 }

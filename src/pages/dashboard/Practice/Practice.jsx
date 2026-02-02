@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BookOpen, DatabaseZap, Delete, Search} from "lucide-react";
+import {DatabaseZap, Delete, Search} from "lucide-react";
 import api from "../../../services/api.tsx";
 import {getErrorResponseMessage, getSuccessData} from "../../../utils/responses.jsx";
 import {toast} from "react-toastify";
@@ -20,12 +20,12 @@ const Practice = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!input) {
-            toast.error('Please enter a query');
+            toast.error(t('practice.query_required'));
             return;
         }
         setLoading(true);
         try {
-            const response = await api.post("http://localhost:8000/api/v1/runner", {
+            const response = await api.post("http://127.0.0.1:8000/api/v1/runner", {
                 query: input
             }, {
                 headers: {
@@ -36,8 +36,7 @@ const Practice = () => {
                 const data = getSuccessData(response);
                 setColumns(data.columns);
                 setRows(data.rows);
-                toast.success('Query executed successfully');
-                console.log('Query Result:', data);
+                toast.success(t('laboratories.query_executed_success'));
             }
         } catch (error) {
             const message = getErrorResponseMessage(error);

@@ -13,7 +13,7 @@ const ProfileReportStatus = () => {
         const [selectedReport, setSelectedReport] = useState(null);
         const loadReports = async () => {
             try {
-                const response = await api.get("http://localhost:8000/api/v1/report/by-user", {
+                const response = await api.get("http://127.0.0.1:8000/api/v1/report/by-user", {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }

@@ -14,7 +14,6 @@ const ScoreTemplate = ({score}) => {
         return { ...user, rank: currentRank };
     });
 
-    console.log(scoresWithRank);
 
     const getRankDetails = (rank, index) => {
         const baseRow = 'border-b border-gray-200 transition-colors duration-150';
