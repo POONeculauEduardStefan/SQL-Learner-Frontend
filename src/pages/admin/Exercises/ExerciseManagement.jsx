@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {BookOpen, Plus} from 'lucide-react';
-import AddLaboratoryModal from './Components/AddLaboratoryModal.jsx';
-import AddExerciseModal from './Components/AddExerciseModal.jsx';
-import EditExerciseModal from "./Components/EditExerciseModal.jsx";
+import AddLaboratoryModal from './components/AddLaboratoryModal.jsx';
+import AddExerciseModal from './components/AddExerciseModal.jsx';
+import EditExerciseModal from "./components/EditExerciseModal.jsx";
 import api from "../../../services/api.tsx";
 import {getErrorResponseMessage, getSuccessData} from "../../../utils/responses.jsx";
 import {toast} from "react-toastify";
-import ExerciseCard from "./Components/ExerciseCard.jsx";
+import ExerciseCard from "./components/ExerciseCard.jsx";
 import DeleteEntityModal from "../../DeleteEntityModal.jsx";
 import LaboratoriesList from "./components/LaboratoriesList.jsx";
 import EditLaboratoryModal from "./components/EditLaboratoryModal.jsx";

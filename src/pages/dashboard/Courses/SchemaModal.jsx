@@ -18,7 +18,7 @@ erDiagram
     PROFESORI ||--o{ DIDACTIC : "preda"
 
     STUDENTI {
-        char(6) nr_matricol PK
+        CHAR(6) nr_matricol PK
         VARCHAR2(10) nume
         VARCHAR2(10) prenume
         NUMBER(1) an
@@ -28,7 +28,7 @@ erDiagram
     }
 
     CURSURI {
-        char(4) id_curs PK
+        CHAR(4) id_curs PK
         VARCHAR2(15) titlu_curs
         NUMBER(1) an
         NUMBER(1) semestru
@@ -36,22 +36,22 @@ erDiagram
     }
 
     NOTE {
-        char(6) nr_matricol FK
-        char(4) id_curs FK
+        CHAR(6) nr_matricol FK
+        CHAR(4) id_curs FK
         NUMBER(2) valoare
         DATE data_notare
     }
 
     PROFESORI {
-        char(4) id_prof PK
+        CHAR(4) id_prof PK
         CHAR(10) nume
         CHAR(10) prenume
         VARCHAR2(5) grad_didactic
     }
 
     DIDACTIC {
-        char(4) id_prof FK
-        char(4) id_curs FK
+        CHAR(4) id_prof FK
+        CHAR(4) id_curs FK
     }
   `;
 
